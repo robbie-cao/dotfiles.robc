@@ -40,12 +40,12 @@ esac
 
 if [ -n "$force_color_prompt" ]; then
     if [ -x /usr/bin/tput ] && tput setaf 1 >&/dev/null; then
-	# We have color support; assume it's compliant with Ecma-48
-	# (ISO/IEC-6429). (Lack of such support is extremely rare, and such
-	# a case would tend to support setf rather than setaf.)
-	color_prompt=yes
+        # We have color support; assume it's compliant with Ecma-48
+        # (ISO/IEC-6429). (Lack of such support is extremely rare, and such
+        # a case would tend to support setf rather than setaf.)
+        color_prompt=yes
     else
-	color_prompt=
+        color_prompt=
     fi
 fi
 
@@ -56,13 +56,17 @@ else
 fi
 unset color_prompt force_color_prompt
 
+# Set a default prompt of: user@host and current_directory
+# !!! IT OVERWRITE PS1 SETTINGS ABOVE !!!
+PS1='\[\e]0;\w\a\]\n\[\e[32m\]\u@\h:\[\e[33m\]\w\[\e[0m\]\n\$ '
+
 # If this is an xterm set the title to user@host:dir
 case "$TERM" in
-xterm*|rxvt*)
-    PS1="\[\e]0;${debian_chroot:+($debian_chroot)}\u@\h: \w\a\]$PS1"
-    ;;
-*)
-    ;;
+    xterm*|rxvt*)
+        PS1="\[\e]0;${debian_chroot:+($debian_chroot)}\u@\h: \w\a\]$PS1"
+        ;;
+    *)
+        ;;
 esac
 
 # enable color support of ls and also add handy aliases
@@ -81,6 +85,9 @@ fi
 alias ll='ls -alF'
 alias la='ls -A'
 alias l='ls -CF'
+
+# Lynx, to display Chinese character
+alias lynx='lynx -display_charset=gb2312 -accept_all_cookies'
 
 # Set grep options
 # To exclude .git .svn
@@ -106,14 +113,15 @@ if [ -f /etc/bash_completion ] && ! shopt -oq posix; then
     . /etc/bash_completion
 fi
 
-export PATH=$PATH:/home/robbie/Tools/android-sdk-linux/tools:/home/robbie/Tools/android-sdk-linux/platform-tools
-export PATH=$PATH:/home/robbie/Tools/eclipse
-export PATH=$PATH:/home/robbie/Tools/jdk1.6.0_45/bin
-export JAVA_HOME=/home/robbie/Tools/jdk1.6.0_45
-export ARCH=i386
+export PATH=$PATH:/Users/robbie/Developments/android-sdk-macosx/tools:/Users/robbie/Developments/android-sdk-macosx/platform-tools
+#export PATH=$PATH:/home/robbie/Tools/android-sdk-linux/tools:/home/robbie/Tools/android-sdk-linux/platform-tools
+#export PATH=$PATH:/home/robbie/Tools/eclipse
+#export PATH=$PATH:/home/robbie/Tools/jdk1.6.0_45/bin
+#export JAVA_HOME=/home/robbie/Tools/jdk1.6.0_45
+#export ARCH=i386
 
 # Setup for minicom
-export MINICOM="-c on -D /dev/ttyUSB0 -C minicom.log.`date +%Y%m%d.%H%M`"
+export MINICOM="-c on -D /dev/tty.usbserial-A7044NW4 -C /Users/robbie/Log/minicom.log.`date +%Y%m%d.%H%M`"
 
 # Forward X display to X-Server
 # Not need to the following 3 lines if enable X11 forwarding in PuTTY
@@ -121,6 +129,39 @@ export MINICOM="-c on -D /dev/ttyUSB0 -C minicom.log.`date +%Y%m%d.%H%M`"
 #    export DISPLAY=`echo $SSH_CONNECTION | awk '{print $1}' | awk -F: '{if ($1 == "") print $4; else print $1}'`:0
 #fi
 
+# Alias for ssh
+alias rxp='ssh robc-xp'
+alias rit='ssh 120.24.216.37'
+
+# Alias for MacVim in terminal
+alias v='mvim -v'
+
+# Alias for gist
+alias gist='gist -c -o -s'
+
+# brew Command tab-completion
+source $(brew --repository)/Library/Contributions/brew_bash_completion.sh
+
+# Add RVM to PATH for scripting
+export PATH="$PATH:$HOME/.rvm/bin"
+# Add brew path
+export PATH=$PATH:$(brew --prefix)/bin
+# Add python path
+export PYTHONPATH="/usr/local/lib/python2.7/site-packages/"
+#python -c 'import sys,pprint;pprint.pprint(sys.path)'
+
+
 # A funny output when you start a new bash
-/usr/games/fortune | /usr/games/cowsay -f tux
+if [ "$(uname)" == "Darwin" ]; then
+    # Do something under Mac OS X platform
+    archey
+elif [ "$(expr substr $(uname -s) 1 5)" == "Linux" ]; then
+    # Do something under Linux platform
+    fortune | cowsay -f tux
+elif [ "$(expr substr $(uname -s) 1 6)" == "CYGWIN" ]; then
+    # Do something under Cygwin platform
+    echo
+else
+    echo
+fi
 
