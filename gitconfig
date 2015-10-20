@@ -1,60 +1,27 @@
 [color]
-	ui = auto
+    ui = auto
 [user]
-	name = Haijun Cao
-	email = haijun.cao@intel.com
+    name = Robbie Cao
+    email = robbie.cao@gmail.com
+[push]
+    default = matching
+[alias]
+    co = checkout
+    br = branch -a -vv
+    ci = commit -s -v
+    ca = commit --amend -s
+    cm = commit --amend -s -C HEAD
+    cb = checkout -b
+    st = status
+    up = pull -v
+    di = diff
+    lo = log --graph --oneline
+    ll = log --pretty=format:"%C(yellow)%h%Cred%d\\ %Creset%s%Cblue\\ [%cn]" --decorate --numstat
+    ld = log --pretty=format:"%C(yellow)%h\\ %C(green)%ad%Cred%d\\ %Creset%s%Cblue\\ [%cn]" --decorate --date=short --graph
+    ls = log --pretty=format:"%C(green)%h\\ %C(yellow)[%ad]%Cred%d\\ %Creset%s%Cblue\\ [%cn]" --decorate --date=relative --graph
+    last = log -3 HEAD
+    unstage = reset HEAD --
 
-[review "android.intel.com:8080"]
-	username = hcao10
 
-#[url "git://shlabacsbb06.sh.intel.com/"]
-#	  insteadOf=ssh://jfumg-gcrmirror.jf.intel.com/
-#[url "git://shlabacsbb06.sh.intel.com/"]
-#	  insteadOf=git://jfumg-gcrmirror.jf.intel.com/
-
-#[url "ssh://shlabacsbb06.sh.intel.com/"]
-#	insteadOf=git://jfumg-gcrmirror.jf.intel.com/
-#[url "ssh://shlabacsbb06.sh.intel.com/"]
-#	insteadOf=ssh://jfumg-gcrmirror.jf.intel.com/
-#[url "ssh://shlabacsbb06.sh.intel.com/"]
-#	insteadOf=git://android.intel.com
-#[url "ssh://shlabacsbb06.sh.intel.com/"]
-#	insteadOf=ssh://android.intel.com
-
-# Gerrit mirror in SH site mcg-psi-gcr-glb.sh.intel.com is to be EOL
-# WW25 2014
-#[url "ssh://mcg-psi-gcr-glb.sh.intel.com/"]
-#	insteadOf=git://jfumg-gcrmirror.jf.intel.com/
-#[url "ssh://mcg-psi-gcr-glb.sh.intel.com/"]
-#	insteadOf=ssh://jfumg-gcrmirror.jf.intel.com/
-#[url "ssh://mcg-psi-gcr-glb.sh.intel.com/"]
-#	insteadOf=git://android.intel.com
-#[url "ssh://mcg-psi-gcr-glb.sh.intel.com/"]
-#	insteadOf=ssh://android.intel.com
-
-#[url "ssh://hcao10@mcg-psi-gcr-glb.sh.intel.com:29418/"]
-#	insteadOf=ssh://jfumg-gcrmirror.jf.intel.com/
-#	insteadOf=git://jfumg-gcrmirror.jf.intel.com/
-#	insteadOf=git://android.intel.com/
-#	insteadOf=ssh://android.intel.com:29418/
-#	insteadOf=ssh://android.intel.com/
-
-[url "ssh://android-mirror-sh.devtools.intel.com/"]
-	insteadOf=git://jfumg-gcrmirror.jf.intel.com/
-	insteadOf=ssh://jfumg-gcrmirror.jf.intel.com/
-	insteadOf=git://android.intel.com
-	insteadOf=ssh://android.intel.com
-
-[url "ssh://hcao10@android-mirror-sh.devtools.intel.com:29418/"]
-	insteadOf=ssh://jfumg-gcrmirror.jf.intel.com/
-	insteadOf=git://jfumg-gcrmirror.jf.intel.com/
-	insteadOf=git://android.intel.com/
-	insteadOf=ssh://android.intel.com:29418/
-	insteadOf=ssh://android.intel.com/
-
-[url "ssh://android.intel.com:29418/"]
-	pushInsteadOf=ssh://android.intel.com/
-	pushInsteadOf=ssh://android.intel.com:29418/
-	pushInsteadOf=ssh://jfumg-gcrmirror.jf.intel.com/
-	pushInsteadOf=ssh://jfumg-gcrmirror.jf.intel.com:29418/
-
+[github]
+    user = robbie-cao
