@@ -1,0 +1,19 @@
+# MAILDIR=mail_folder
+# LOGFILE=log_file
+# FORMAIL=/usr/bin/formail
+
+LOGFILE=~/.procmail.log
+LOGABSTRACT=no
+VERBOSE=off
+
+# Use formail to filter duplicate mails
+#:0 Whc: .msgid.lock
+#| $FORMAIL -D 16384 .msgid.cache
+#
+#:0 a
+#$MAILDIR/duplicates
+
+:0
+* .*
+default
+

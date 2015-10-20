@@ -1,0 +1,17 @@
+# do not show hidden files in the list
+set match-hidden-files off
+  
+# auto complete ignoring case
+set show-all-if-ambiguous on
+set completion-ignore-case on
+"\ep": history-search-backward
+"\e[A": history-search-backward
+"\e[B": history-search-forward
+
+# 
+# 默认情况下，按下两次 <tab> 才会出现提示，show-all-if-ambiguous 开启后，只需要一次了。
+# 关掉 match-hidden-files 不显示隐藏文件，特比是当你在 Home 目录时，你会觉得眼前好干净。
+# 开启 completion-ignore-case 忽略大小写，写 PHP 时我估计大约 1/4 的按键都是 shift + 4，该死的美元符号！Shell 命令，我不想再和大写字母纠缠了，让 <tab> 搞定好了。
+# history-search-*，输入几个字母，按上下箭头，搜索你的历史命令。
+#
+

@@ -1,0 +1,15 @@
+#
+# My config
+#
+
+# msword
+#application/msword; wvHtml --charset=gb2312 %s - | w3m -dump -I gb2312 -T text/html; nametemplate=%s.html; copiousoutput
+#application/msword; wvHtml --charset=gb18030 %s - | w3m -dump -I gb18030 -T text/html; nametemplate=%s.html; copiousoutput
+#application/msword; wvHtml --charset=gbk %s - | w3m -dump -I gbk -T text/html; nametemplate=%s.html; copiousoutput
+#application/msword; wvHtml --charset=utf-8 %s - | w3m -dump -I utf-8 -T text/html; nametemplate=%s.html; copiousoutput
+#application/msword; wvHtml --charset=us-ascii %s - | w3m -dump -I us-ascii -T text/html; nametemplate=%s.html; copiousoutput
+#application/msword; wvHtml --charset=iso-8859-1 %s - | w3m -dump -I iso-8859-1 -T text/html; nametemplate=%s.html; copiousoutput
+
+# html
+text/html; w3m -T text/html -I %{charset} -dump %s; nametemplate=%s.html; copiousoutput  
+
