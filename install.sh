@@ -25,6 +25,7 @@ list=(          \
     procmailrc  \
     screnrc     \
     tmux.conf   \
+    ackrc       \
 )
 
 for i in ${list[@]}; 
