@@ -669,6 +669,10 @@
 ;(global-set-key (kbd "C-=") 'tabbar-backward-group)
 ;(global-set-key (kbd "C--") 'tabbar-forward-group)
 
+;; 设置tabbar字体
+;;~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+;(set-face-attribute 'tabbar-default-face
+;  nil :family "Monospace")
 
 ;; 高亮风格，color-theme插件
 ;;~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -709,6 +713,31 @@
 	(string-match "exited abnormally with code.*" state)
 	(string-match "finished" state))
     (kill-buffer (current-buffer))))
+
+;; 其他自定义设置：行移动
+;;******************************************************************
+(global-set-key [(meta up)] 'move-line-up)
+(global-set-key [(meta down)] 'move-line-down) 
+
+(defun move-line (&optional n)
+  "Move current line N (1) lines up/down leaving point in place."
+  (interactive "p")
+  (when (null n)
+    (setq n 1))
+  (let ((col (current-column)))
+    (beginning-of-line)
+    (next-line 1)
+    (transpose-lines n)
+    (previous-line 1)
+    (forward-char col)))
+(defun move-line-up (n)
+  "Moves current line N (1) lines up leaving point in place."
+  (interactive "p")
+  (move-line (if (null n) -1 (- n)))) 
+(defun move-line-down (n)
+  "Moves current line N (1) lines down leaving point in place."
+  (interactive "p")
+  (move-line (if (null n) 1 n)))
 
 
 ;===================== cedet设置 =====================================
@@ -891,8 +920,27 @@
 ;; C-c @ C-h hide block
 ;; C-c @ C-c toggle hide/show
 
-;========================================================================
+;; Python相关设置，由于使用了python-mode的东西，必须放到cedet后面
+;;~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+(require 'python-mode)
+(require 'pymacs)
+(require 'auto-complete)
+(require 'auto-complete-python)
+(global-auto-complete-mode t)
+(define-key ac-complete-mode-map "\C-n" 'ac-next)
+(define-key ac-complete-mode-map "\C-p" 'ac-previous)
+(define-key ac-complete-mode-map "\t" 'ac-complete)
+(define-key ac-complete-mode-map "\r" nil)
+(setq ac-auto-start 2)
+(ac-ropemacs-init)
 
+(require 'yasnippet)
+(require 'yasnippet-bundle)
+(setq yas/trigger-key (kbd "C-c <kp-multiply>"))
+(yas/initialize)
+(yas/load-directory "~/elisp/yasnippet/snippets")
+
+;========================================================================
 (defun my-c-mode-auto-pair ()
   (interactive)
   (make-local-variable 'skeleton-pair-alist)
@@ -1012,3 +1060,15 @@
 ;;******************************************************************
 (normal-erase-is-backspace-mode t)
 
+
+;; 编码设置
+;;******************************************************************
+(set-language-environment 'UTF-8)
+
+
+;; 字体设置
+;;******************************************************************
+;(set-default-font "Monospace-12")
+;(set-default-font "Bitstream Vera Sans Mono-12")
+;(set-fontset-font (frame-parameter nil 'font)
+;  'unicode '("wenquanyi bitmap song" . "unicode-bmp") 'nil 'append)
