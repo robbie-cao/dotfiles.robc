@@ -5,6 +5,149 @@ export ZSH=/Users/robbie/.oh-my-zsh
 # Look in ~/.oh-my-zsh/themes/
 # Optionally, if you set this to "random", it'll load a random theme each
 # time that oh-my-zsh is loaded.
+#
+# Available themes
+# 3den
+# Soliah
+# adben
+# af-magic
+# afowler
+# agnoster
+# alanpeabody
+# amuse
+# apple
+# arrow
+# aussiegeek
+# avit
+# awesomepanda
+# bira
+# blinks
+# bureau
+# candy-kingdom
+# candy
+# clean
+# cloud
+# crcandy
+# crunch
+# cypher
+# dallas
+# darkblood
+# daveverwer
+# dieter
+# dogenpunk
+# dpoggi
+# dst
+# dstufft
+# duellj
+# eastwood
+# edvardm
+# emotty
+# essembeh
+# evan
+# example
+# fino-time
+# fino
+# fishy
+# flazz
+# fletcherm
+# fox
+# frisk
+# frontcube
+# funky
+# fwalch
+# gallifrey
+# gallois
+# garyblessington
+# gentoo
+# geoffgarside
+# gianu
+# gnzh
+# gozilla
+# half-life
+# humza
+# imajes
+# intheloop
+# itchy
+# jaischeema
+# jbergantine
+# jispwoso
+# jnrowe
+# jonathan
+# josh
+# jreese
+# jtriley
+# juanghurtado
+# junkfood
+# kafeitu
+# kardan
+# kennethreitz
+# kiwi
+# kolo
+# kphoen
+# lambda
+# linuxonly
+# lukerandall
+# macovsky-ruby
+# macovsky
+# maran
+# mgutz
+# mh
+# michelebologna
+# mikeh
+# miloshadzic
+# minimal
+# mira
+# mortalscumbag
+# mrtazz
+# murilasso
+# muse
+# nanotech
+# nebirhos
+# nicoulaj
+# norm
+# obraun
+# peepcode
+# philips
+# pmcgee
+# pure
+# pygmalion
+# re5et
+# rgm
+# risto
+# rixius
+# rkj-repos
+# rkj
+# robbyrussell
+# sammy
+# simonoff
+# simple
+# skaro
+# smt
+# sonicradish
+# sorin
+# sporty_256
+# steeef
+# strug
+# sunaku
+# sunrise
+# superjarin
+# suvash
+# takashiyoshida
+# terminalparty
+# theunraveler
+# tjkirch
+# tjkirch_mod
+# tonotdo
+# trapd00r
+# wedisagree
+# wezm+
+# wezm
+# wuffers
+# xiong-chiamiov-plus
+# xiong-chiamiov
+# ys
+# zhann
+#
 ZSH_THEME="robbyrussell"
 
 # Uncomment the following line to use case-sensitive completion.
@@ -18,7 +161,7 @@ ZSH_THEME="robbyrussell"
 # DISABLE_AUTO_UPDATE="true"
 
 # Uncomment the following line to change how often to auto-update (in days).
-# export UPDATE_ZSH_DAYS=13
+export UPDATE_ZSH_DAYS=30
 
 # Uncomment the following line to disable colors in ls.
 # DISABLE_LS_COLORS="true"
@@ -30,17 +173,17 @@ ZSH_THEME="robbyrussell"
 # ENABLE_CORRECTION="true"
 
 # Uncomment the following line to display red dots whilst waiting for completion.
-# COMPLETION_WAITING_DOTS="true"
+COMPLETION_WAITING_DOTS="true"
 
 # Uncomment the following line if you want to disable marking untracked files
 # under VCS as dirty. This makes repository status check for large repositories
 # much, much faster.
-# DISABLE_UNTRACKED_FILES_DIRTY="true"
+DISABLE_UNTRACKED_FILES_DIRTY="true"
 
 # Uncomment the following line if you want to change the command execution time
 # stamp shown in the history command output.
 # The optional three formats: "mm/dd/yyyy"|"dd.mm.yyyy"|"yyyy-mm-dd"
-# HIST_STAMPS="mm/dd/yyyy"
+HIST_STAMPS="yyyy-mm-dd"
 
 # Would you like to use another custom folder than $ZSH/custom?
 # ZSH_CUSTOM=/path/to/new-custom-folder
@@ -49,7 +192,7 @@ ZSH_THEME="robbyrussell"
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
-plugins=(git)
+plugins=(git git-extras github autojump battery autoenv web-search common-alias command-not-found colored-man-pages tmux pip bower perl python npm last-working-dir brew)
 
 # User configuration
 
@@ -67,6 +210,7 @@ source $ZSH/oh-my-zsh.sh
 # else
 #   export EDITOR='mvim'
 # fi
+export EDITOR='vim'
 
 # Compilation flags
 # export ARCHFLAGS="-arch x86_64"
@@ -82,3 +226,40 @@ source $ZSH/oh-my-zsh.sh
 # Example aliases
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
+
+# Setup for minicom
+export MINICOM="-c on -D /dev/tty.usbserial-A7044NW4 -C /Users/robbie/Log/minicom.log.`date +%Y%m%d.%H%M`"
+
+# Forward X display to X-Server
+# Not need to the following 3 lines if enable X11 forwarding in PuTTY
+#if [ "$SSH_CONNECTION" != '' ]; then
+#    export DISPLAY=`echo $SSH_CONNECTION | awk '{print $1}' | awk -F: '{if ($1 == "") print $4; else print $1}'`:0
+#fi
+
+# Alias for ssh
+alias rxp='ssh robc-xp'
+alias rit='ssh 120.24.216.37'
+
+# Alias for MacVim in terminal
+alias v='mvim -v'
+
+# Alias for gist
+alias gist='gist -c -o -s'
+
+# A funny output when you start a new bash
+#if [ "$(uname)" == "Darwin" ]; then
+#    # Do something under Mac OS X platform
+#    archey
+#elif [ "$(expr substr $(uname -s) 1 5)" == "Linux" ]; then
+#    # Do something under Linux platform
+#    fortune | cowsay -f tux
+#elif [ "$(expr substr $(uname -s) 1 6)" == "CYGWIN" ]; then
+#    # Do something under Cygwin platform
+#    echo
+#else
+#    echo
+#fi
+
+# Temp use archey without OSX check
+archey
+
