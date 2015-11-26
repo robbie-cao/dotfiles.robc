@@ -13,6 +13,7 @@ lnif() {
 today=`date +%Y%m%d`
 list=(          \
     bashrc      \
+    zshrc       \
     byobu       \
     dot_emacs   \
     fetchmailrc \
