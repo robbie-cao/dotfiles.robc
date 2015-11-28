@@ -15,6 +15,7 @@
     st = status
     up = pull -v
     di = diff
+    dt = difftool
     lo = log --graph --oneline
     ll = log --pretty=format:"%C(yellow)%h%Cred%d\\ %Creset%s%Cblue\\ [%cn]" --decorate --numstat
     ld = log --pretty=format:"%C(yellow)%h\\ %C(green)%ad%Cred%d\\ %Creset%s%Cblue\\ [%cn]" --decorate --date=short --graph
@@ -25,3 +26,8 @@
 
 [github]
     user = robbie-cao
+
+[diff]
+    tool = vimdiff
+[difftool]
+    prompt = false
