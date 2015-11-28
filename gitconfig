@@ -33,4 +33,4 @@
     prompt = false
 [core]
     editor = vim
-    autocrlf = true
+    safecrlf = true
