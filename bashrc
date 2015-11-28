@@ -139,16 +139,25 @@ alias v='mvim -v'
 # Alias for gist
 alias gist='gist -c -o -s'
 
-# brew Command tab-completion
-source $(brew --repository)/Library/Contributions/brew_bash_completion.sh
+if [ "$(uname)" == "Darwin" ]; then
+    # brew Command tab-completion
+    source $(brew --repository)/Library/Contributions/brew_bash_completion.sh
 
-# Add RVM to PATH for scripting
-export PATH="$PATH:$HOME/.rvm/bin"
-# Add brew path
-export PATH=$PATH:$(brew --prefix)/bin
-# Add python path
-export PYTHONPATH="/usr/local/lib/python2.7/site-packages/"
-#python -c 'import sys,pprint;pprint.pprint(sys.path)'
+    # Add RVM to PATH for scripting
+    export PATH="$PATH:$HOME/.rvm/bin"
+    # Add brew path
+    export PATH=$PATH:$(brew --prefix)/bin
+    # Add python path
+    export PYTHONPATH="/usr/local/lib/python2.7/site-packages/"
+    #python -c 'import sys,pprint;pprint.pprint(sys.path)'
+
+elif [ "$(expr substr $(uname -s) 1 5)" == "Linux" ]; then
+    echo
+elif [ "$(expr substr $(uname -s) 1 6)" == "CYGWIN" ]; then
+    echo
+else
+    echo
+fi
 
 
 # A funny output when you start a new bash
