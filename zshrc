@@ -246,6 +246,9 @@ alias v='mvim -v'
 # Alias for gist
 alias gist='gist -c -o -s'
 
+# Path
+export PATH=$PATH:/Users/robbie/.bin
+
 # A funny output when you start a new bash
 #if [ "$(uname)" == "Darwin" ]; then
 #    # Do something under Mac OS X platform

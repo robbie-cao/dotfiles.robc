@@ -113,11 +113,23 @@ if [ -f /etc/bash_completion ] && ! shopt -oq posix; then
     . /etc/bash_completion
 fi
 
-export PATH=$PATH:/Users/robbie/Developments/android-sdk-macosx/tools:/Users/robbie/Developments/android-sdk-macosx/platform-tools
-#export PATH=$PATH:/home/robbie/Tools/android-sdk-linux/tools:/home/robbie/Tools/android-sdk-linux/platform-tools
-#export PATH=$PATH:/home/robbie/Tools/eclipse
-#export PATH=$PATH:/home/robbie/Tools/jdk1.6.0_45/bin
-#export JAVA_HOME=/home/robbie/Tools/jdk1.6.0_45
+# Path
+
+if [ "$(uname)" == "Darwin" ]; then
+    export PATH=$PATH:/Users/robbie/.bin
+    export PATH=$PATH:/Users/robbie/Developments/android-sdk-macosx/tools:/Users/robbie/Developments/android-sdk-macosx/platform-tools
+
+elif [ "$(expr substr $(uname -s) 1 5)" == "Linux" ]; then
+    export PATH=$PATH:/home/robbie/.bin
+    #export PATH=$PATH:/home/robbie/Tools/android-sdk-linux/tools:/home/robbie/Tools/android-sdk-linux/platform-tools
+    #export PATH=$PATH:/home/robbie/Tools/eclipse
+    #export PATH=$PATH:/home/robbie/Tools/jdk1.6.0_45/bin
+    #export JAVA_HOME=/home/robbie/Tools/jdk1.6.0_45
+elif [ "$(expr substr $(uname -s) 1 6)" == "CYGWIN" ]; then
+    export PATH=$PATH:/home/robbie/.bin
+else
+    echo
+fi
 #export ARCH=i386
 
 # Setup for minicom
@@ -139,6 +151,7 @@ alias v='mvim -v'
 # Alias for gist
 alias gist='gist -c -o -s'
 
+# Platform specific
 if [ "$(uname)" == "Darwin" ]; then
     # brew Command tab-completion
     source $(brew --repository)/Library/Contributions/brew_bash_completion.sh
