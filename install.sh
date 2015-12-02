@@ -28,6 +28,7 @@ list=(          \
     tmux.conf   \
     ackrc       \
     w3m         \
+    vmailrc     \
     lynx.cfg    \
     lynx.lss    \
 )

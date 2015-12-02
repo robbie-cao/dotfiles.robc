@@ -227,6 +227,11 @@ export EDITOR='vim'
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 
+# Setup for vmail
+#if [ "$(uname)" == "Darwin" ]; then
+    export VMAIL_VIM='mvim -v'
+#fi
+
 # Setup for minicom
 export MINICOM="-c on -D /dev/tty.usbserial-A7044NW4 -C /Users/robbie/Log/minicom.log.`date +%Y%m%d.%H%M`"
 

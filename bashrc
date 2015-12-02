@@ -130,6 +130,14 @@ elif [ "$(expr substr $(uname -s) 1 6)" == "CYGWIN" ]; then
 else
     echo
 fi
+
+
+# Setup for vmail
+if [ "$(uname)" == "Darwin" ]; then
+    export VMAIL_VIM='mvim -v'
+fi
+
+
 #export ARCH=i386
 
 # Setup for minicom
