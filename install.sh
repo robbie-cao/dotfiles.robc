@@ -27,6 +27,7 @@ list=(          \
     screenrc    \
     tmux.conf   \
     ackrc       \
+    w3m         \
     lynx.cfg    \
     lynx.lss    \
 )
