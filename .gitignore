@@ -55,3 +55,6 @@ docs/_build/
 
 # PyBuilder
 target/
+
+# w3m
+w3m/history
