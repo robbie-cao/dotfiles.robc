@@ -35,10 +35,10 @@ set sort=threads
 # Postfix and qmail use Delivered-To for detecting loops
 unset bounce_delivered
 
-set mixmaster="mixmaster-filter"
+#set mixmaster="mixmaster-filter"
 
 # System-wide CA file managed by the ca-certificates package
-set ssl_ca_certificates_file="/etc/ssl/certs/ca-certificates.crt"
+#set ssl_ca_certificates_file="/etc/ssl/certs/ca-certificates.crt"
 
 # imitate the old search-body function
 macro index \eb "<search>~b " "search in message bodies"
@@ -144,8 +144,8 @@ source /usr/lib/mutt/source-muttrc.d|
 # General
 set sendmail="/usr/bin/msmtp"
 set use_from=yes
-set realname="Cao, Haijun"
-set from=haijun.cao@intel.com
+set realname="Robbie Cao"
+set from=robbie.cao@gmail.com
 set envelope_from=yes
 set rfc2047_parameters=yes
 
@@ -240,3 +240,49 @@ hdr_order Date From To Subject X-Mailer User-Agent Organization
 # Sort by date in reverse order
 folder-hook . set sort=reverse-date
 
+# Change the following six lines to match your Gmail account details
+set imap_user = "robbie.cao@gmail.com"
+set imap_pass = ""
+set smtp_url = "smtp://robbie.cao@smtp.gmail.com:587/"
+set smtp_pass = ""
+set from = "robbie.cao@gmail.com"
+set realname = "Robbie Cao"
+
+# Change the following line to a different editor you prefer.
+set editor = "vim"
+
+# Basic config, you can leave this as is
+set folder = "imaps://imap.gmail.com:993"
+set spoolfile = "+Inbox"
+set imap_check_subscribed
+set hostname = gmail.com
+set mail_check = 120
+set timeout = 300
+set imap_keepalive = 300
+set postponed = "+[Gmail]/Drafts"
+set record = "+[Gmail]/Sent Mail"
+set header_cache=~/.mutt/cache/headers
+set message_cachedir=~/.mutt/cache/bodies
+set certificate_file=~/.mutt/certificates
+set move = no
+set include
+set sort = 'threads'
+set sort_aux = 'reverse-last-date-received'
+set auto_tag = yes
+ignore "Authentication-Results:"
+ignore "DomainKey-Signature:"
+ignore "DKIM-Signature:"
+hdr_order Date From To Cc
+alternative_order text/plain text/html *
+auto_view text/html
+bind editor <Tab> complete-query
+bind editor ^T complete
+bind editor <space> noop
+
+# Gmail-style keyboard shortcuts
+macro index,pager y "unset trash\n " "Gmail archive message"
+macro index,pager d "set trash=\"imaps://imap.googlemail.com/[Gmail]/Bin\"\n " "Gmail delete message"
+macro index,pager gi "=Inbox" "Go to Inbox"
+macro index,pager ga "=[Gmail]/All Mail" "Go to all mail"
+macro index,pager gs "=[Gmail]/Starred" "Go to starred messages"
+macro index,pager gd "=[Gmail]/Drafts" "Go to drafts"
