@@ -27,6 +27,8 @@ list=(          \
     screenrc    \
     tmux.conf   \
     ackrc       \
+    lynx.cfg    \
+    lynx.lss    \
 )
 
 for i in ${list[@]}; 
