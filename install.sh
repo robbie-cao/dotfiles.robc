@@ -24,7 +24,7 @@ list=(          \
     muttrc      \
     netrc       \
     procmailrc  \
-    screnrc     \
+    screenrc    \
     tmux.conf   \
     ackrc       \
 )
