@@ -58,3 +58,7 @@ target/
 
 # w3m
 w3m/history
+w3m/w3m
+
+# byobu
+byobu/byobu
