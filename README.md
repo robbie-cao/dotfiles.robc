@@ -1,30 +1,34 @@
-# dot-files
+# dotfiles
 
 **[Robbie Cao](<mailto: robbie.cao@gmail.com>)**
 
 ## Information
 
-This is dot files of [Robbie Cao](<mailto: robbie.cao@gmail.com>).
+This is dotfiles of [Robbie Cao](<mailto: robbie.cao@gmail.com>).
 Much of it is beneficial for general use, I would recommend
 picking out the parts you want and understand.
 
 Config for tmux is from [xuxiaodong/tmuxen](https://github.com/xuxiaodong/tmuxen).
+*dotfiles* branch is a clone of [claytron/dotfiles](https://github.com/claytron/dotfiles).
 
 ## Installation
 
 1. Clone a copy to your local
 
     ```
-    $ git clone git@github.com:robbie-cao/config-vim.git
+    $ git clone git@github.com:robbie-cao/dotfiles.robc.git
     ```
 
 2. Install dependence packages
 
     - macos
-    
+        * TODO
+
     - ubuntu
-    
+        * TODO
+
     - cygwin
+        * TODO
 
 3. Run install.sh
 
@@ -45,15 +49,3 @@ If you would like to help making it better, feel free to fork it. Any patches ar
 
 ## About Me
 
-=======
-About
------
-
-tmux environment made easy.
-
-![tmux](https://github.com/xuxiaodong/tmuxen/raw/master/screenshot.png)
-
-Installation
-------------
-
-    git clone git://github.com/xuxiaodong/tmuxen.git
