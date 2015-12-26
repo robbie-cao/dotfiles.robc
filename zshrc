@@ -1,5 +1,5 @@
 # Path to your oh-my-zsh installation.
-export ZSH=/Users/robbie/.oh-my-zsh
+export ZSH=~/.oh-my-zsh
 
 # Set name of the theme to load.
 # Look in ~/.oh-my-zsh/themes/
@@ -192,11 +192,16 @@ HIST_STAMPS="yyyy-mm-dd"
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
-plugins=(git git-extras github svn battery autoenv autojump common-alias command-not-found colored-man-pages web-search tmux pip bower npm perl python ruby)
+plugins=(git git-extras github svn battery autojump common-alias command-not-found colored-man-pages web-search pip bower npm perl python ruby)
 
 # User configuration
 
-export PATH="/opt/local/bin:/opt/local/sbin:/opt/local/bin:/opt/local/sbin:/opt/local/bin:/opt/local/sbin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/git/bin:/Users/robbie/Developments/tools/android-sdk-macosx/platform-tools:/Users/robbie/Developments/tools/android-sdk-macosx/tools:/Users/robbie/Developments/tools/bin:/Users/robbie/.rvm/bin:/Users/robbie/Developments/android-sdk-macosx/tools:/Users/robbie/Developments/android-sdk-macosx/platform-tools:/Users/robbie/.rvm/bin:/usr/local/bin:/Users/robbie/Developments/android-sdk-macosx/tools:/Users/robbie/Developments/android-sdk-macosx/platform-tools:/Users/robbie/.rvm/bin:/usr/local/bin"
+export PATH="/opt/local/bin:/opt/local/sbin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/git/bin"
+# Path for macos
+if [[ "$(uname)" == "Darwin" ]]; then
+    export PATH=$PATH:"/Users/robbie/Developments/tools/android-sdk-macosx/platform-tools:/Users/robbie/Developments/tools/android-sdk-macosx/tools"
+    export PATH=$PATH:"/Users/robbie/.rvm/bin"
+fi
 # export MANPATH="/usr/local/man:$MANPATH"
 
 source $ZSH/oh-my-zsh.sh
@@ -228,12 +233,14 @@ export EDITOR='vim'
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 
 # Setup for vmail
-#if [ "$(uname)" == "Darwin" ]; then
+if [[ "$(uname)" == "Darwin" ]]; then
     export VMAIL_VIM='mvim -v'
-#fi
+fi
 
 # Setup for minicom
-export MINICOM="-c on -D /dev/tty.usbserial-A7044NW4 -C /Users/robbie/Log/minicom.log.`date +%Y%m%d.%H%M`"
+if [[ "$(uname)" == "Darwin" ]]; then
+    export MINICOM="-c on -D /dev/tty.usbserial-A7044NW4 -C /Users/robbie/Log/minicom.log.`date +%Y%m%d.%H%M`"
+fi
 
 # Forward X display to X-Server
 # Not need to the following 3 lines if enable X11 forwarding in PuTTY
@@ -246,28 +253,27 @@ alias rxp='ssh robc-xp'
 alias rit='ssh 120.24.216.37'
 
 # Alias for MacVim in terminal
-alias v='mvim -v'
+if [[ "$(uname)" == "Darwin" ]]; then
+    alias v='mvim -v'
+fi
 
 # Alias for gist
 alias gist='gist -c -o -s'
 
 # Path
-export PATH=$PATH:/Users/robbie/.bin
+export PATH=$PATH:~/.bin
 
 # A funny output when you start a new bash
-#if [ "$(uname)" == "Darwin" ]; then
-#    # Do something under Mac OS X platform
-#    archey
-#elif [ "$(expr substr $(uname -s) 1 5)" == "Linux" ]; then
-#    # Do something under Linux platform
-#    fortune | cowsay -f tux
-#elif [ "$(expr substr $(uname -s) 1 6)" == "CYGWIN" ]; then
-#    # Do something under Cygwin platform
-#    echo
-#else
-#    echo
-#fi
-
-# Temp use archey without OSX check
-archey
+if [[ "$(uname)" == "Darwin" ]]; then
+    # Do something under Mac OS X platform
+    archey
+elif [[ "$(expr substr $(uname -s) 1 5)" == "Linux" ]]; then
+    # Do something under Linux platform
+    fortune | cowsay -f tux
+elif [[ "$(expr substr $(uname -s) 1 6)" == "CYGWIN" ]]; then
+    # Do something under Cygwin platform
+    echo
+else
+    echo
+fi
 
