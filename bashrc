@@ -154,7 +154,9 @@ alias rxp='ssh robc-xp'
 alias rit='ssh 120.24.216.37'
 
 # Alias for MacVim in terminal
-alias v='mvim -v'
+if [ "$(uname)" == "Darwin" ]; then
+    alias v='mvim -v'
+fi
 
 # Alias for gist
 alias gist='gist -c -o -s'
