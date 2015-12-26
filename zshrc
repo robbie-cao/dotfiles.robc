@@ -199,8 +199,8 @@ plugins=(git git-extras github svn battery autojump common-alias command-not-fou
 export PATH="/opt/local/bin:/opt/local/sbin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/git/bin"
 # Path for macos
 if [[ "$(uname)" == "Darwin" ]]; then
-    export PATH=$PATH:"/Users/robbie/Developments/tools/android-sdk-macosx/platform-tools:/Users/robbie/Developments/tools/android-sdk-macosx/tools"
-    export PATH=$PATH:"/Users/robbie/.rvm/bin"
+    export PATH=$PATH:~/Developments/android-sdk-macosx/platform-tools:~/Developments/android-sdk-macosx/tools
+    export PATH=$PATH:~/.rvm/bin
 fi
 # export MANPATH="/usr/local/man:$MANPATH"
 
@@ -239,7 +239,7 @@ fi
 
 # Setup for minicom
 if [[ "$(uname)" == "Darwin" ]]; then
-    export MINICOM="-c on -D /dev/tty.usbserial-A7044NW4 -C /Users/robbie/Log/minicom.log.`date +%Y%m%d.%H%M`"
+    export MINICOM="-c on -D /dev/tty.usbserial-A7044NW4 -C ~/Log/minicom.log.`date +%Y%m%d.%H%M`"
 fi
 
 # Forward X display to X-Server
