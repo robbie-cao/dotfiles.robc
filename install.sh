@@ -54,5 +54,13 @@ ln -sf $cwd/tmuxen $bin/tmuxen
 echo "Symlinking _tmux.conf to $HOME/.tmux.conf"
 ln -sf $cwd/_tmux.conf $HOME/.tmux.conf
 
+echo "Installing utils to $bin"
+for i in `ls bin`;
+do
+    echo "Install $i";
+    ln -sf $cwd/bin/$i $bin/$i;
+done
+
+
 echo "Install Done!"
 
