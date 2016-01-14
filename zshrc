@@ -239,7 +239,7 @@ fi
 
 # Setup for minicom
 if [[ "$(uname)" == "Darwin" ]]; then
-    export MINICOM="-c on -D /dev/tty.usbserial-A7044NW4 -C ~/Log/minicom.log.`date +%Y%m%d.%H%M`"
+    export MINICOM="-c on -C ~/Log/minicom.log.`date +%Y%m%d.%H%M`"
 fi
 
 # Forward X display to X-Server
