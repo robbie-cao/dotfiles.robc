@@ -196,7 +196,7 @@ plugins=(git git-extras github svn battery autojump common-alias command-not-fou
 
 # User configuration
 
-export PATH="/opt/local/bin:/opt/local/sbin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/git/bin"
+export PATH=$PATH:/opt/local/bin:/opt/local/sbin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/git/bin
 # Path for macos
 if [[ "$(uname)" == "Darwin" ]]; then
     export PATH=$PATH:~/Developments/android-sdk-macosx/platform-tools:~/Developments/android-sdk-macosx/tools

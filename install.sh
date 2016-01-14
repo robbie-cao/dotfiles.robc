@@ -33,26 +33,36 @@ list=(          \
     lynx.lss    \
 )
 
-for i in ${list[@]}; 
-do 
-    echo "Install $i"; 
+for i in ${list[@]};
+do
+    echo "Install $i";
     lnif $CURRENT_DIR/$i $HOME/.$i;
-    echo "Link .$i -> $CURRENT_DIR/$i"; 
+    echo "Link .$i -> $CURRENT_DIR/$i";
 done
 
 # Install tmuxen
 bin=$HOME/.bin
 cwd=$(pwd)
 
-if [ ! -d $bin ]; then
-    mkdir $bin
+if [ -d $bin ]; then
+    echo "Backup $bin to $bin.$today"
+    mv -f $bin $bin.$today
 fi
 
+mkdir $bin
 echo "Installing tmuxen to $bin"
 ln -sf $cwd/tmuxen $bin/tmuxen
 
 echo "Symlinking _tmux.conf to $HOME/.tmux.conf"
 ln -sf $cwd/_tmux.conf $HOME/.tmux.conf
+
+echo "Installing utils to $bin"
+for i in `ls bin`;
+do
+    echo "Install $i";
+    ln -sf $cwd/bin/$i $bin/$i;
+done
+
 
 echo "Install Done!"
 
