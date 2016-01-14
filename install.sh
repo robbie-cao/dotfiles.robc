@@ -42,6 +42,7 @@ done
 
 # Install tmuxen
 bin=$HOME/.bin
+lib=$HOME/.lib
 cwd=$(pwd)
 
 if [ -d $bin ]; then
@@ -49,7 +50,14 @@ if [ -d $bin ]; then
     mv -f $bin $bin.$today
 fi
 
+if [ -d $lib ]; then
+    echo "Backup $lib to $lib.$today"
+    mv -f $lib $lib.$today
+fi
+
 mkdir $bin
+mkdir $lib
+
 echo "Installing tmuxen to $bin"
 ln -sf $cwd/tmuxen $bin/tmuxen
 
@@ -61,6 +69,13 @@ for i in `ls bin`;
 do
     echo "Install $i";
     ln -sf $cwd/bin/$i $bin/$i;
+done
+
+echo "Installing libs to $lib"
+for i in `ls lib`;
+do
+    echo "Install $i";
+    ln -sf $cwd/lib/$i $lib/$i;
 done
 
 
