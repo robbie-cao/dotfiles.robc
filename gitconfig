@@ -35,3 +35,5 @@
     prompt = false
 [core]
     editor = vim
+[ghi]
+	token = !security find-internet-password -a robbie-cao -s github.com -l 'ghi token' -w
