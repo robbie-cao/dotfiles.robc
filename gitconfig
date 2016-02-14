@@ -1,10 +1,27 @@
-[color]
-    ui = auto
+[core]
+    whitespace=fix,-indent-with-non-tab,trailing-space,cr-at-eol
+    editor = vim
 [user]
     name = Robbie Cao
     email = robbie.cao@gmail.com
 [push]
     default = matching
+[color]
+    ui = auto
+[color "branch"]
+    current = green reverse
+    local = yellow
+    remote = red
+[color "diff"]
+    whitespace = red reverse
+    meta = yellow
+    frag = magenta
+    old = red
+    new = green
+[color "status"]
+    added = yellow
+    changed = green
+    untracked = cyan
 [alias]
     co = checkout
     br = branch -a -vv
@@ -20,7 +37,7 @@
     ds = difftool -y -x "sdiff"
     lo = log --graph --oneline
     ll = log --pretty=format:"%C(yellow)%h%Cred%d\\ %Creset%s%Cblue\\ [%cn]" --decorate --numstat
-    ld = log --pretty=format:"%C(yellow)%h\\ %C(green)%ad%Cred%d\\ %Creset%s%Cblue\\ [%cn]" --decorate --date=short --graph
+    ld = log --pretty=format:"%C(yellow)%h\\ %C(green)%ad%Cred%d\\ %Creset%s%Cblue\\ [%cn]" --decorate=short --date=iso --graph
     ls = log --pretty=format:"%C(green)%h\\ %C(yellow)[%ad]%Cred%d\\ %Creset%s%Cblue\\ [%cn]" --decorate --date=relative --graph
     last = log -3 HEAD
     unstage = reset HEAD --
@@ -33,7 +50,5 @@
     tool = vimdiff
 [difftool]
     prompt = false
-[core]
-    editor = vim
 [ghi]
 	token = !security find-internet-password -a robbie-cao -s github.com -l 'ghi token' -w
