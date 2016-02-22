@@ -46,6 +46,11 @@
     la = log --pretty=format:"%C(yellow)%h\\ %C(green)%ad%Cred%d\\ %Creset%s%C(cyan)\\ [%cn]" --decorate=short --date=iso --graph --all
     ld = log --pretty=format:"%C(yellow)%h\\ %C(green)%ad%Cred%d\\ %Creset%s%C(cyan)\\ [%cn]" --decorate=short --date=iso --graph
     ls = log --pretty=format:"%C(green)%h\\ %C(yellow)[%ad]%Cred%d\\ %Creset%s%C(magenta)\\ [%cn]" --decorate --date=relative --graph
+    lr = log -g --abbrev-commit --pretty=oneline
+    rf = reflog
+    ra = reflog show --all
+    rp = reflog show --all --pretty
+    rl = reflog show --pretty=format:"%C(yellow)%h\\ %C(green)%ad%Cred%d\\ %Creset%s%C(cyan)\\ [%cn]" --decorate=short --date=iso --all
     sync = pull -v --rebase
     last = log -3 HEAD
     integrate = merge --no-ff
