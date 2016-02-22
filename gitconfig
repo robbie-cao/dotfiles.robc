@@ -43,9 +43,12 @@
     ds = difftool -y -x "sdiff"
     lo = log --graph --oneline
     ll = log --pretty=format:"%C(yellow)%h%Cred%d\\ %Creset%s%C(cyan)\\ [%cn]" --decorate --numstat
+    la = log --pretty=format:"%C(yellow)%h\\ %C(green)%ad%Cred%d\\ %Creset%s%C(cyan)\\ [%cn]" --decorate=short --date=iso --graph --all
     ld = log --pretty=format:"%C(yellow)%h\\ %C(green)%ad%Cred%d\\ %Creset%s%C(cyan)\\ [%cn]" --decorate=short --date=iso --graph
     ls = log --pretty=format:"%C(green)%h\\ %C(yellow)[%ad]%Cred%d\\ %Creset%s%C(magenta)\\ [%cn]" --decorate --date=relative --graph
+    sync = pull -v --rebase
     last = log -3 HEAD
+    integrate = merge --no-ff
     unstage = reset HEAD --
 
 
