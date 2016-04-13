@@ -201,6 +201,10 @@ export PATH=$PATH:/opt/local/bin:/opt/local/sbin:/usr/local/bin:/usr/bin:/bin:/u
 if [[ "$(uname)" == "Darwin" ]]; then
     export PATH=$PATH:~/Developments/android-sdk-macosx/platform-tools:~/Developments/android-sdk-macosx/tools
     export PATH=$PATH:~/.rvm/bin
+    # TeX
+    export PATH=$PATH:/Applications/TeX/TeXShop.app/Contents/Resources/TeXShop/bin
+    export PATH=$PATH:/Library/TeX/Distributions/.DefaultTeX/Contents/Programs/texbin
+
 fi
 # export MANPATH="/usr/local/man:$MANPATH"
 
@@ -262,6 +266,9 @@ alias gist='gist -c -o -s'
 
 # Path
 export PATH=$PATH:~/.bin
+
+# Docbook
+export XML_CATALOG_FILES="/usr/local/etc/xml/catalog"
 
 # A funny output when you start a new bash
 if [[ "$(uname)" == "Darwin" ]]; then

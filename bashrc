@@ -174,6 +174,13 @@ if [ "$(uname)" == "Darwin" ]; then
     export PYTHONPATH="/usr/local/lib/python2.7/site-packages/"
     #python -c 'import sys,pprint;pprint.pprint(sys.path)'
 
+    # Docbook
+    export XML_CATALOG_FILES="/usr/local/etc/xml/catalog"
+
+    # TeX
+    export PATH=$PATH:/Applications/TeX/TeXShop.app/Contents/Resources/TeXShop/bin
+    export PATH=$PATH:/Library/TeX/Distributions/.DefaultTeX/Contents/Programs/texbin
+
 elif [ "$(expr substr $(uname -s) 1 5)" == "Linux" ]; then
     echo
 elif [ "$(expr substr $(uname -s) 1 6)" == "CYGWIN" ]; then
