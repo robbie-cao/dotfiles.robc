@@ -131,6 +131,19 @@ else
     echo
 fi
 
+# Preferred editor for local and remote sessions
+# if [[ -n $SSH_CONNECTION ]]; then
+#   export EDITOR='vim'
+# else
+#   export EDITOR='mvim'
+# fi
+export EDITOR='vim'
+
+# Compilation flags
+# export ARCHFLAGS="-arch x86_64"
+
+# ssh
+# export SSH_KEY_PATH="~/.ssh/dsa_id"
 
 # Setup for vmail
 if [ "$(uname)" == "Darwin" ]; then
@@ -141,7 +154,9 @@ fi
 #export ARCH=i386
 
 # Setup for minicom
-export MINICOM="-c on -D /dev/tty.usbserial-A7044NW4 -C /Users/robbie/Log/minicom.log.`date +%Y%m%d.%H%M`"
+if [[ "$(uname)" == "Darwin" ]]; then
+    export MINICOM="-c on -C ~/Log/minicom.log.`date +%Y%m%d.%H%M`"
+fi
 
 # Forward X display to X-Server
 # Not need to the following 3 lines if enable X11 forwarding in PuTTY
@@ -182,13 +197,16 @@ if [ "$(uname)" == "Darwin" ]; then
     export PATH=$PATH:/Library/TeX/Distributions/.DefaultTeX/Contents/Programs/texbin
 
 elif [ "$(expr substr $(uname -s) 1 5)" == "Linux" ]; then
-    echo
+    # Add RVM to PATH for scripting
+    export PATH="$PATH:$HOME/.rvm/bin"
 elif [ "$(expr substr $(uname -s) 1 6)" == "CYGWIN" ]; then
     echo
 else
     echo
 fi
 
+# Docbook
+export XML_CATALOG_FILES="/usr/local/etc/xml/catalog"
 
 # A funny output when you start a new bash
 if [ "$(uname)" == "Darwin" ]; then

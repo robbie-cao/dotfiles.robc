@@ -197,21 +197,29 @@ plugins=(git git-extras github svn battery autojump common-alias command-not-fou
 # User configuration
 
 export PATH=$PATH:/opt/local/bin:/opt/local/sbin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/git/bin
-# Path for macos
-if [[ "$(uname)" == "Darwin" ]]; then
-    export PATH=$PATH:~/Developments/android-sdk-macosx/platform-tools:~/Developments/android-sdk-macosx/tools
-    export PATH=$PATH:~/.rvm/bin
-    # TeX
-    export PATH=$PATH:/Applications/TeX/TeXShop.app/Contents/Resources/TeXShop/bin
-    export PATH=$PATH:/Library/TeX/Distributions/.DefaultTeX/Contents/Programs/texbin
-
-fi
 # export MANPATH="/usr/local/man:$MANPATH"
 
 source $ZSH/oh-my-zsh.sh
 
 # You may need to manually set your language environment
 # export LANG=en_US.UTF-8
+
+# Path
+if [[ "$(uname)" == "Darwin" ]]; then
+    export PATH=$PATH:/Users/robbie/.bin
+    export PATH=$PATH:/Users/robbie/Developments/android-sdk-macosx/tools:/Users/robbie/Developments/android-sdk-macosx/platform-tools
+
+elif [[ "$(expr substr $(uname -s) 1 5)" == "Linux" ]]; then
+    export PATH=$PATH:/home/robbie/.bin
+    #export PATH=$PATH:/home/robbie/Tools/android-sdk-linux/tools:/home/robbie/Tools/android-sdk-linux/platform-tools
+    #export PATH=$PATH:/home/robbie/Tools/eclipse
+    #export PATH=$PATH:/home/robbie/Tools/jdk1.6.0_45/bin
+    #export JAVA_HOME=/home/robbie/Tools/jdk1.6.0_45
+elif [[ "$(expr substr $(uname -s) 1 6)" == "CYGWIN" ]]; then
+    export PATH=$PATH:/home/robbie/.bin
+else
+    echo
+fi
 
 # Preferred editor for local and remote sessions
 # if [[ -n $SSH_CONNECTION ]]; then
@@ -266,6 +274,32 @@ alias gist='gist -c -o -s'
 
 # Path
 export PATH=$PATH:~/.bin
+# Platform specific
+if [[ "$(uname)" == "Darwin" ]]; then
+    export PATH=$PATH:~/Developments/android-sdk-macosx/platform-tools:~/Developments/android-sdk-macosx/tools
+    export PATH=$PATH:~/.rvm/bin
+    # TeX
+    export PATH=$PATH:/Applications/TeX/TeXShop.app/Contents/Resources/TeXShop/bin
+    export PATH=$PATH:/Library/TeX/Distributions/.DefaultTeX/Contents/Programs/texbin
+    # Add python path
+    export PYTHONPATH="/usr/local/lib/python2.7/site-packages/"
+    #python -c 'import sys,pprint;pprint.pprint(sys.path)'
+
+    # Docbook
+    export XML_CATALOG_FILES="/usr/local/etc/xml/catalog"
+
+    # TeX
+    export PATH=$PATH:/Applications/TeX/TeXShop.app/Contents/Resources/TeXShop/bin
+    export PATH=$PATH:/Library/TeX/Distributions/.DefaultTeX/Contents/Programs/texbin
+
+elif [[ "$(expr substr $(uname -s) 1 5)" == "Linux" ]]; then
+    # Add RVM to PATH for scripting
+    export PATH="$PATH:$HOME/.rvm/bin"
+elif [[ "$(expr substr $(uname -s) 1 6)" == "CYGWIN" ]]; then
+    echo
+else
+    echo
+fi
 
 # Docbook
 export XML_CATALOG_FILES="/usr/local/etc/xml/catalog"
