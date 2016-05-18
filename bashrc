@@ -205,6 +205,9 @@ else
     echo
 fi
 
+# Add golang path
+export PATH=$PATH:$HOME/.dev/go/bin
+
 # Docbook
 export XML_CATALOG_FILES="/usr/local/etc/xml/catalog"
 
