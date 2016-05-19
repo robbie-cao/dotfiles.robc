@@ -270,7 +270,7 @@ if [[ "$(uname)" == "Darwin" ]]; then
 fi
 
 # Alias for gist
-alias gist='gist -c -o -s'
+alias gist='gist -o -s'
 
 # Path
 export PATH=$PATH:~/.bin

@@ -174,7 +174,7 @@ if [ "$(uname)" == "Darwin" ]; then
 fi
 
 # Alias for gist
-alias gist='gist -c -o -s'
+alias gist='gist -o -s'
 
 # Platform specific
 if [ "$(uname)" == "Darwin" ]; then
