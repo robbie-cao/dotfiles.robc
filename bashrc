@@ -196,6 +196,9 @@ if [ "$(uname)" == "Darwin" ]; then
     export PATH=$PATH:/Applications/TeX/TeXShop.app/Contents/Resources/TeXShop/bin
     export PATH=$PATH:/Library/TeX/Distributions/.DefaultTeX/Contents/Programs/texbin
 
+    # Go
+    export PATH=$PATH:/Users/robbie/Developments/go/bin
+
 elif [ "$(expr substr $(uname -s) 1 5)" == "Linux" ]; then
     # Add RVM to PATH for scripting
     export PATH="$PATH:$HOME/.rvm/bin"

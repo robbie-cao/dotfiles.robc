@@ -197,6 +197,19 @@ plugins=(git git-extras github svn battery autojump common-alias command-not-fou
 # User configuration
 
 export PATH=$PATH:/opt/local/bin:/opt/local/sbin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/git/bin
+
+# Path for macos
+if [[ "$(uname)" == "Darwin" ]]; then
+    export PATH=$PATH:~/Developments/android-sdk-macosx/platform-tools:~/Developments/android-sdk-macosx/tools
+    export PATH=$PATH:~/.rvm/bin
+    # TeX
+    export PATH=$PATH:/Applications/TeX/TeXShop.app/Contents/Resources/TeXShop/bin
+    export PATH=$PATH:/Library/TeX/Distributions/.DefaultTeX/Contents/Programs/texbin
+
+    # Go
+    export PATH=$PATH:/Users/robbie/Developments/go/bin
+
+fi
 # export MANPATH="/usr/local/man:$MANPATH"
 
 source $ZSH/oh-my-zsh.sh
