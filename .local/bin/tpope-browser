@@ -1,0 +1,157 @@
+#!/bin/sh
+# vim:set et sw=2:
+
+# As the name suggests, picks a sensible web browser based on what's installed
+# and what environment we're in.  The -T option forces a terminal browser.
+
+[ "$PATH" ] || PATH="$HOME/bin:/usr/local/bin:/usr/bin/X11:/usr/bin:/bin"
+[ -f "$HOME/.sb.local" ] && . "$HOME/.sb.local"
+
+if [ "$1" = "-T" ]; then
+  shift
+  terminal=' '
+fi
+
+if [ -n "$STY" ]; then
+  launch() { screen -ln -fn -t "WWW" "$@"; sleep 2; exit 0
+  }
+elif [ -n "$TMUX" ]; then
+  launch() { tmux new-window -n "WWW" "$*"; sleep 2; exit 0
+  }
+elif [ ! -t 1 ]; then
+  launch() { nohup x-terminal-emulator -title 'WWW-Browser' -e "$@" >/dev/null 2>/dev/null & exit 0
+  }
+else
+  launch() { exec "$@"
+  }
+fi
+
+xdotool_find_browser() {
+  if [ -x "`which xdotool 2>/dev/null`" ]; then
+    classes=${1:-'^(Navigator|Google-chrome|Chromium|Konqueror|Dillo|Uzbl)'}
+    xdotool search --desktop `xdotool get_desktop` --class "$classes" windowactivate ||
+      xdotool search --onlyvisible --class "$classes" windowactivate ||
+      xdotool search --class "$classes" windowactivate
+  else
+    false
+  fi
+}
+
+find_browser() {
+  instance="echo $1|sed -e 's/\(.\)/\U\1/"
+  if [ -x "`which xdotool 2>/dev/null`" ]; then
+    wmctrl -x -a "$instance"
+  else
+    xdotool_find_browser "^$instance"
+  fi
+}
+
+[ -z "$1" ] && xdotool_find_browser && exit 0
+
+xdg_command_for_desktop_file() {
+  # From xdg-open
+  if [ -n "$1" ] ; then
+    xdg_user_dir="$XDG_DATA_HOME"
+    [ -n "$xdg_user_dir" ] || xdg_user_dir="$HOME/.local/share"
+
+    xdg_system_dirs="$XDG_DATA_DIRS"
+    [ -n "$xdg_system_dirs" ] || xdg_system_dirs=/usr/local/share/:/usr/share/
+
+    for x in `echo "$xdg_user_dir:$xdg_system_dirs" | sed 's/:/ /g'`; do
+      local file="$x/applications/$1"
+      if [ -r "$file" ] ; then
+        grep -E "^Exec(\[[^]=]*])?=" "$file" | cut -d= -f 2-
+      fi
+    done
+  fi | head -1
+}
+
+if [ --command-for = "$1" ]; then
+  xdg_command_for_desktop_file "$2"
+  exit
+fi
+
+case "$DISPLAY" in
+  :*|localhost*:0*|127.0.0.1:*|`hostname`*:0*) x11=1 ;;
+esac
+
+if [ -x /usr/bin/cygstart -a -z "$terminal" ]; then
+  exec cygstart "$*"
+elif [ -n "$SECURITYSESSIONID" -o -n "$Apple_PubSub_Socket_Render" ] && [ -x /usr/bin/open -a -z "$terminal" ]; then
+  exec open "$*"
+elif [ -z "$terminal" ] && expr "$DISPLAY" : '^:' >/dev/null; then
+  url="$*"
+
+  case "$url" in
+    http:*|https:*) ;;
+    *:*)
+      scheme=`echo "$url"|sed -e 's/:.*//'`
+      default=`xdg-mime query default "x-scheme-handler/$scheme" 2>/dev/null`
+      command=`xdg_command_for_desktop_file $default`
+      case $command in
+        *%[Uu]*)
+        eval `echo $command|sed -e 's/%[Uu]/"$url"/g'` && exit 0
+      esac
+      ;;
+    /*) url="file://$url" ;;
+    .) url="file://`pwd`" ;;
+    ./*) url="file://`pwd`/$url" ;;
+    *) [ ! -e "$url" ] || url="file://`pwd`/$url" ;;
+  esac
+
+  default=`xdg-mime query default x-scheme-handler/http 2>/dev/null`
+
+  for browser in `basename "$default" .desktop` firefox google-chrome chromium; do
+    if xlsclients | grep "  $browser" >/dev/null; then
+      nice -n 1 $browser "$url" >/dev/null 2>&1 || continue
+      find_browser $browser
+      exit 0
+    fi
+  done
+
+  firefox_dir="$HOME/.mozilla/firefox"
+
+  for browser in `xdg_command_for_desktop_file "$default"|awk '{print $1}'` google-chrome chromium-browser firefox konqueror dillo; do
+    if type $browser >/dev/null; then
+      if [ "`basename $browser`" = firefox -a ! -d "$firefox_dir" ]; then
+        args=
+        nohup $browser >/dev/null 2>/dev/null &
+        for i in 1 2 3 4 5 6 7 8; do
+          sleep 1
+          [ ! -d "$firefox_dir" ] || break
+        done
+        sleep 1
+        echo 'Performing an initial "tpope setup web"'
+        if killall `basename $browser-bin` 2>/dev/null; then
+          sleep 1
+          find "$firefox_dir" \( -name "localstore.rdf" -o -name "bookmarks.html" \) -exec rm {} \;
+          tpope setup web
+          echo 'Restarting browser so changes will take effect'
+        else
+          tpope setup web
+        fi
+      else
+        args=$CHROME_ARGS
+      fi
+      nohup $browser $args "$@" >/dev/null 2>/dev/null &
+      disown >/dev/null 2>&1
+      case "$url" in
+        file:*) sleep 5 ;;
+      esac
+      exit 0
+    fi
+  done
+fi
+
+if [ -x "`which w3m 2>/dev/null`" ]; then
+  launch w3m -T text/html "$@"
+elif [ -x "`which elinks 2>/dev/null`" ]; then
+  launch elinks "$@"
+elif [ -x "`which links 2>/dev/null`" ]; then
+  launch links "$@"
+elif [ -x "`which lynx 2>/dev/null`" ]; then
+  launch lynx -force_html "$@"
+fi
+
+echo "No web browsers found." >&2
+exit 1

@@ -1,0 +1,315 @@
+#!/bin/sh
+# vim:set et sw=2:
+
+# Provides a standard interface for sending commands to various media players.
+
+mpris_list() {
+  dbus-send --print-reply --dest=org.freedesktop.DBus / org.freedesktop.DBus.ListNames|grep '^ *string "org\.mpris\.MediaPlayer2\..*"'|sed -e 's/"$//' -e 's/.*\.//'
+}
+
+mpris_player_get() {
+  dbus-send --print-reply --dest="org.mpris.MediaPlayer2.$1" /org/mpris/MediaPlayer2 org.freedesktop.DBus.Properties.Get string:org.mpris.MediaPlayer2.Player string:"$2"
+}
+
+normalize_rate() {
+  echo $1 | sed -e 's/^+$/*1.0594631/' -e 's/^-$/*0.9438743/' -e 's/^$/1/'
+}
+
+mpris_player_change() {
+  old=`mpris_player_get $1 $2 | tail -1 | sed -e 's/.* //'`
+  arg=`echo $3|sed -e 's/%/*0.01/'`
+  case $arg in
+    [-+*/]*) arg=`perl -e "print $old$arg"` ;;
+    *) arg=`perl -e "print $arg"` ;;
+  esac
+  dbus-send --print-reply \
+    --dest="org.mpris.MediaPlayer2.$dest" \
+    /org/mpris/MediaPlayer2 org.freedesktop.DBus.Properties.Set \
+    string:org.mpris.MediaPlayer2.Player \
+    string:$2 \
+    variant:double:$arg \
+    >/dev/null 2>&1
+}
+
+mpris() {
+  dest=$1
+  shift
+  case $1 in
+    get) mpris_player_get $dest $2; return ;;
+    volume) mpris_player_change $dest Volume $2; return ;;
+    rate) mpris_player_change $dest Rate `normalize_rate $2`; return ;;
+    quit) cmd=Quit ;;
+    raise) cmd=Raise ;;
+    stop) cmd=Player.Stop ;;
+    play|resume) cmd=Player.Play ;;
+    pause) cmd=Player.Pause ;;
+    toggle) cmd=Player.PlayPause ;;
+    next) cmd=Player.Next ;;
+    prev) cmd=Player.Previous ;;
+    ffwd) cmd="Player.Seek int64:${2:-5}000000" ;;
+    seek) cmd="Player.Seek int64:${2:--5}000000" ;;
+    rew) cmd="Player.Seek int64:-${2:-5}000000" ;;
+    *) cmd="$*" ;;
+  esac
+  dbus-send --print-reply --dest="org.mpris.MediaPlayer2.$dest" /org/mpris/MediaPlayer2 org.mpris.MediaPlayer2.$cmd >/dev/null
+}
+
+mplayer_tell() {
+  case "$1" in
+    quit) echo quit ;;
+    stop) echo stop ;;
+    pause) echo frame_step ;;
+    toggle) echo speed_set 1; echo 'osd_show_text ""'; echo pause ;;
+    play|resume) echo speed_set 1; echo 'osd_show_text ""'; [ Playing = "`mplayer_status`" ] || echo pause ;;
+    next) echo pt_step 1 ;;
+    prev) echo pt_step -1 ;;
+    seek) echo seek ${2:--15} ;;
+    rate)
+      rate=`normalize_rate $2`
+      case $2 in
+        [0-9]*) echo speed_set $rate ;;
+        [+-]*) echo speed_incr $rate ;;
+        [*]*) echo speed_mult $rate|sed -e 's/\*//' ;;
+      esac
+      ;;
+    *) echo "$*" ;;
+  esac > "$HOME/.mplayer/mplayer"
+}
+
+mplayer_status() {
+  pid=`pidof mplayer`
+  [ -n "$pid" ] || return 1
+  host=`hostname`
+  case `find_pulse sink-inputs $pid $host Corked` in
+    *no*) echo Playing ;;
+    *yes*) echo Paused ;;
+    *) echo Stopped ;;
+  esac
+}
+
+cdcd_tell() {
+  case "$1" in
+    quit) cdcd open ;;
+    stop) cdcd stop ;;
+    pause) cdcd pause ;;
+    resume) cdcd resume ;;
+    next) cdcd next ;;
+    prev) cdcd prev ;;
+    seek)
+      case "$2" in
+        -*) cdcd rew `echo $2|sed -e 's/^-//'` ;;
+        *) cdcd ff `echo $2|sed -e 's/^+//'` ;;
+      esac
+      ;;
+    play|toggle)
+      if cdcd status 2>/dev/null|grep Playing >/dev/null; then
+        cdcd pause
+      elif cdcd status 2>/dev/null|grep Paused >/dev/null; then
+        cdcd resume
+      else
+        cdcd play
+      fi ;;
+    *) return 1 ;;
+  esac
+}
+
+cdcd_status() {
+  cdcd status 2>/dev/null
+}
+
+list() {
+  for dest in `mpris_list`; do
+    if mpris_player_get $dest 'PlaybackStatus' | grep P >/dev/null || mpris_player_get $dest 'CanPlay' | grep false >/dev/null; then
+      echo $dest
+    fi
+  done
+  if pidof mplayer >/dev/null && [ -p "$HOME/.mplayer/mplayer" ]; then
+    echo mplayer
+  fi
+  if [ -x "/usr/bin/cdcd" ]; then
+    [ -f "$HOME/.cdcdrc" ] || echo "device=/dev/cdrom" > "$HOME/.cdcdrc"
+    status=`cdcd status 2>/dev/null`
+    if [ -n "$status" -a "$status" != "No disc in drive" ]; then
+      echo cdcd
+    fi
+  fi
+}
+
+find_pulse() {
+  pid=$2
+  host=$3
+  if [ "x$pid" = "x--current" ]; then
+    w=`xprop -root _NET_ACTIVE_WINDOW | sed -e 's/.*# //'`
+    pid=`xprop -id $w _NET_WM_PID | sed -e 's/.*= //'`
+    host=`xprop -id $w WM_CLIENT_MACHINE | cut -s -d '"' -f 2`
+  fi
+  [ -n "$host" ] || host=`hostname`
+  pactl list $1 | while read line; do
+    case "$line" in
+      *\#*[0-9]) id=`echo $line | sed -e 's/.*#//'` ;;
+      $4:*) extra=`echo $line |sed -e 's/.*: //'` ;;
+      "application.process.host = \"$host\"") [ -z "$foundpid" ] || echo $id $extra ;;
+      "application.process.id = \"$pid\"") foundpid=1 ;;
+      "application.process.id = "*) foundpid= ;;
+    esac
+  done
+}
+
+list_pulse() {
+  pactl list short "${1}s" | grep -v '\.monitor'
+}
+
+tell() {
+  if type "${1}_tell" >/dev/null 2>&1; then
+    prog=$1
+    shift
+    ${prog}_tell "$@"
+  else
+    mpris "$@"
+  fi
+}
+
+status() {
+  if type "${1}_status" >/dev/null 2>&1; then
+    ${1}_status
+  else
+    mpris_player_get "$1" PlaybackStatus | tail -1 | sed -e 's/"$//' -e 's/.*"//'
+  fi
+}
+
+playing() {
+  [ Playing = `status $1` ]
+}
+
+if [ $# -eq 0 ]; then
+  for prog in `list`; do
+    echo $prog `status $prog`
+  done
+  exit 0
+fi
+
+cmd=$1
+shift
+
+case $cmd in
+
+  tell)
+    tell "$@"
+    ;;
+
+  pause)
+    for prog in `list`; do
+      ! playing $prog || tell $prog pause
+    done
+    ;;
+
+  activate)
+    for prog in `list`; do
+      if playing $prog && wmctrl -x -a $prog; then
+        exit 0
+      fi
+    done
+    for prog in `list`; do
+      if wmctrl -x -a $prog; then
+        exit 0
+      fi
+    done
+    ;;
+
+  toggle|play|resume|stop|next|prev|seek|volume|rate|raise|quit)
+    for prog in `list`; do
+      if playing $prog && tell $prog "$cmd" "$@"; then
+        exit 0
+      fi
+    done
+    for prog in `list`; do
+      ! tell $prog "$cmd" "$@" || exit 0
+    done
+    exit 1
+    ;;
+
+  sink|source)
+    caps=`echo $cmd|sed -e 's/^./\u&/'`
+    puttype=sink-input
+    [ sink = "$cmd" ] || puttype=source-output
+    hostname=${3:-`hostname`}
+    if [ -n "$2" -a --default != "$2" ]; then
+      current=`find_pulse ${puttype}s $2 $hostname $caps | awk 'NR == 1 { print $2 }'`
+    fi
+    if [ -z "$current" ]; then
+      current=`pactl info|awk "/Default $caps:/ { print \\\$3 }"`
+      current=`pactl list short ${cmd}s | awk -v c="$current" '$2 == c { print $1 }'`
+    fi
+    [ -n "$current" ] || current=0
+    case $1 in
+      toggle|on|off)
+        type=`echo $1|sed -e 's/on/0/' -e 's/off/1/'`
+        if [ -n "$2" ]; then
+          for si in `find_pulse ${puttype}s $2 $3`; do
+            pactl set-$puttype-mute $si $type
+          done
+          exit 0
+        fi
+        for id in `list_pulse $cmd | cut -f1`; do
+          pactl set-$cmd-mute $id $type
+        done
+        exit 0
+      ;;
+      *%|*dB|[0-9]*.*)
+        volume=`echo $1|sed -e 's/^\(.*\)\([+-]\)$/\2\1/'`
+        if [ -n "$2" ]; then
+          for si in `find_pulse ${puttype}s $2 $3`; do
+            pactl set-$puttype-volume $si $volume
+          done
+          exit 0
+        fi
+        for id in `list_pulse $cmd | cut -f1`; do
+          pactl set-$cmd-volume $id $volume
+        done
+        exit 0
+        ;;
+      current) target=$current ;;
+      next)
+        for id in `list_pulse $cmd | cut -f1`; do
+          if [ $current = $id ]; then
+            next=1
+          elif [ -n "$next" ]; then
+            next=
+            target=$id
+          fi
+        done
+        if [ -n "$next" ]; then
+          target=`list_pulse $cmd | head -1 | cut -f1`
+        fi
+        ;;
+      prev)
+        for id in `list_pulse  $cmd | cut -f1`; do
+          if [ $current = $id ]; then
+            target=${last-`list_pulse $cmd | tail -1 | cut -f1`}
+          fi
+          last=$id
+        done
+        ;;
+      *)
+        target=$1
+        ;;
+    esac
+    if [ --default = "$2" ]; then
+      pactl set-default-$cmd $target
+    elif [ -n "$2" ]; then
+      for put in `find_pulse ${puttype}s $2 $hostname`; do
+        pactl move-$puttype $put $target
+      done
+    else
+      pactl set-default-$cmd $target
+      for put in `pactl list short ${puttype}s | cut -f1`; do
+        pactl move-$puttype $put $target 2>/dev/null
+      done
+    fi
+    ;;
+
+  *)
+    echo "$0: unknown action $cmd" >&2
+    exit 2
+    ;;
+esac

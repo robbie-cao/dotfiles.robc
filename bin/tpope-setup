@@ -1,0 +1,237 @@
+#!/bin/sh
+# vim:set et sw=2:
+
+# Does various tasks involved with moving in (such as setting up a crontab and
+# changing my login shell).
+
+hostname="`(hostname 2>/dev/null || cat /proc/sys/kernel/hostname)|sed -e 's/\..*//'`"
+inpath() { [ -x "`which "$1" 2>/dev/null`" ]; }
+
+if [ "x$1" = "x--cron" -o "x$1" = "x--quiet" ]; then
+  quiet=1; exec >/dev/null; shift
+fi
+
+setup_basics() {
+
+if [ ! -f "$HOME/. tpope" -o -r "$HOME/. tpope" ]; then
+  [ -f "$HOME/. tpope" ] || basics=1
+  touch "$HOME/. tpope"
+  chmod 0000 "$HOME/. tpope"
+fi
+if [ ! -f "$HOME/.hushlogin" ]; then
+  touch "$HOME/.hushlogin"
+  basics=1
+fi
+if [ ! -f "$HOME/.local/bin/open" ]; then
+  for file in xdg-open cygstart.exe; do
+    if [ -x /usr/bin/$file ]; then
+      ln -s /usr/bin/$file "$HOME/.local/bin/open"
+      basics=1
+      break
+    fi
+  done
+fi
+if [ ! -f "$HOME/.imaprc" ]; then
+  cat > "$HOME/.imaprc" <<EOF
+I accept the risk
+set mail-subdirectory Mail
+EOF
+  basics=1
+fi
+if [ Darwin = "`uname`" ]; then
+  (
+  cd "$HOME/.terminfo"
+  for char in ?; do
+    hex="`printf $char | od -t x1 | awk 'NR == 1 { print $2 }'`"
+    [ -e "$hex" ] || ln -s $char $hex
+  done
+  )
+fi
+[ -z "$basics" ] || echo "Initializing basic configuration."
+
+}
+
+setup_web() {
+
+if inpath lynx && [ ! -f "$HOME/.lynx.cfg" ]; then
+  globalcfg="`lynx -dump lynxcfg: 2>/dev/null|sed -ne '/^References/,$p'|grep 'file://localhost/'|tail -1|sed -e 's,.*file://localhost,,'`"
+  [ -n "$globalcfg" ] || \
+  for f in /usr/local/lib/lynx.cfg /usr/local/etc/lynx.cfg /etc/lynx.cfg; do
+    [ ! -f "$f" ] || globalcfg="$f"
+  done
+  cat > "$HOME/.lynx.cfg" <<EOF
+# ~/.lynx.cfg
+INCLUDE:$globalcfg
+ACCEPT_ALL_COOKIES:TRUE
+DEFAULT_EDITOR:tpope sensible-editor
+DEFAULT_USER_MODE:INTERMEDIATE
+EMACS_KEYS_ALWAYS_ON:TRUE
+EXTERNAL:http:tpope browse %s:TRUE
+EXTERNAL:file:tpope browse %s:TRUE
+SAVE_SPACE:~/Downloads
+STARTFILE:http://www.google.com/
+EOF
+  web=1
+fi
+if inpath elinks && [ ! -d "$HOME/.elinks" ]; then
+  mkdir "$HOME/.elinks"
+  cat > "$HOME/.elinks/elinks.conf" <<EOF
+# ~/.elinks/elinks.conf
+set terminal.xterm.colors = 1
+set terminal.screen.colors = 1
+set terminal.screen.block_cursor = 1
+set terminal.screen.underline = 1
+set terminal.screen.type = 1
+set document.colors.use_document_colors = 1
+set document.colors.vlink = "fuchsia"
+set document.download.directory = "~/Downloads"
+set document.plain.display_links = 1
+EOF
+  web=1
+elif inpath links && [ ! -d "$HOME/.links" -a ! -d "$HOME/.elinks" ]; then
+  mkdir "$HOME/.links"
+  cat > "$HOME/.links/links.cfg" <<EOF
+# ~/.links/links.cfg
+terminal "xterm" 0 0 1 us-ascii
+terminal "screen" 0 0 1 us-ascii
+download_dir "~/Downloads"
+EOF
+  web=1
+fi
+
+for dir in .mozilla/firefox 'Library/Application Support/Firefox'; do
+  [ -d "$HOME/$dir" ] || continue
+  if [ -f "$HOME/$dir/profiles.ini" ]; then
+    subdirs="`cat "$HOME/$dir/profiles.ini"|grep '^Path='|sed -e 's/^Path=//'`"
+  else
+    subdirs="`ls -1 "$HOME/$dir"`"
+  fi
+  for subdir in $subdirs; do
+    subdir="$HOME/$dir/$subdir"
+    [ -d "$subdir" ] || continue
+    if [ ! -L "$subdir/user.js" ]; then
+      ln -s "$HOME/.netscape/user.js" "$subdir/user.js"
+      web=1
+    fi
+    mkdir -p "$subdir/chrome"
+    if [ ! -e "$subdir/chrome/userContent.css" -a ! -L "$subdir/chrome/userContent.css" ]; then
+      ln -s "$HOME/.netscape/userContent.css" "$subdir/chrome/userContent.css"
+      web=1
+    fi
+  done
+done
+
+[ -z "$web" ] || echo "Initializing browser configuration."
+
+}
+
+setup_cron() {
+
+if inpath crontab && [ ! -f "$HOME/.sandbox" ]; then
+  crontab -l >/tmp/crontab.original.$$ 2>/dev/null
+  cron="$?"
+crontab -l 2>&1 >/dev/null | grep "no crontab" >/dev/null && cron=n
+if [ "$cron" = 0 ]; then
+  if grep 'tpope cron' /tmp/crontab.original.$$ >/dev/null; then
+    sed -ne '/tpope cron/,$p' /tmp/crontab.original.$$ | \
+    sed -ne '2,$p' > /tmp/crontab.custom.$$
+    cronmsg="Updating skeleton crontab."
+  else
+    cp /tmp/crontab.original.$$ /tmp/crontab.custom.$$
+    cronmsg="Inserting skeleton crontab."
+  fi
+elif [ "$cron" = n ]; then
+  cp /tmp/crontab.original.$$ /tmp/crontab.custom.$$
+  cronmsg="Initializing skeleton crontab."
+fi
+if [ "$cron" = 0 -o "$cron" = n ]; then
+  if [ -x /bin/bash ]; then
+    shell=/bin/bash
+  else
+    shell=/bin/sh
+  fi
+  cat >/tmp/crontab.template.$$ <<EOF
+# -*- crontab -*- vim:set ft=crontab:
+# crontab for $LOGNAME@$hostname
+CRON=1
+SHELL=$shell
+ENV=$HOME/.shrc
+BASH_ENV=$HOME/.zshenv
+PATH=$HOME/.bin:$HOME/.local/bin:$HOME/bin:/usr/local/bin:/usr/bin:/bin
+RSYNC_RSH=ssh -axqoBatchMode=yes
+
+20 * * * *	tpope cron
+EOF
+  cat /tmp/crontab.custom.$$ >> /tmp/crontab.template.$$
+  if ! cmp /tmp/crontab.template.$$ /tmp/crontab.original.$$ >/dev/null 2>&1; then
+    echo "$cronmsg"
+    crontab - < /tmp/crontab.template.$$
+  fi
+  rm /tmp/crontab.template.$$ /tmp/crontab.custom.$$
+fi
+rm /tmp/crontab.original.$$
+fi
+
+}
+
+setup_shell() {
+
+zsh="`grep 'zsh$' /etc/shells 2>/dev/null|head -1`"
+if [ -x "$zsh" ] && grep "^$LOGNAME:" /etc/passwd >/dev/null; then
+  if ! grep "^$LOGNAME:.*zsh" /etc/passwd >/dev/null ; then
+    echo "Changing login shell."
+    chsh -s "$zsh"
+  fi
+fi
+
+}
+
+[ $# -gt 0 ] || set -- default
+
+for arg in "$@"; do
+
+case "$arg" in
+
+  default)
+    setup_basics
+    setup_web
+    crontab -l 2>/dev/null | grep 'tpope cron' >/dev/null && setup_cron
+    ;;
+
+  sandbox)
+    touch "$HOME/.sandbox"
+    setup_basics
+    setup_web
+    ;;
+
+  all)
+    setup_basics
+    setup_web
+    setup_cron
+    setup_shell
+    ;;
+
+  basics)
+    setup_basics
+    ;;
+
+  web)
+    setup_web
+    ;;
+
+  cron)
+    setup_cron
+    ;;
+
+  shell)
+    setup_shell
+    ;;
+
+  *)
+    echo "Unknown setup "$arg". Proceeding with basics only." >&2
+    setup_basics
+    ;;
+
+esac
+
+done

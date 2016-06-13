@@ -1,0 +1,13 @@
+syntax: glob
+.#*
+[#]*#
+*~
+.*.sw?
+.sw?
+Session.vim
+/tags
+/doc/tags
+.DS_Store
+.AppleDouble
+foo
+foo.*
