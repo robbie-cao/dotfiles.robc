@@ -207,7 +207,7 @@ if [[ "$(uname)" == "Darwin" ]]; then
     export PATH=$PATH:/Library/TeX/Distributions/.DefaultTeX/Contents/Programs/texbin
 
     # Go
-    export PATH=$PATH:/Users/robbie/Developments/go/bin
+    export PATH=$PATH:$HOME/Developments/go/bin
 
 fi
 # export MANPATH="/usr/local/man:$MANPATH"
@@ -313,9 +313,6 @@ elif [[ "$(expr substr $(uname -s) 1 6)" == "CYGWIN" ]]; then
 else
     echo
 fi
-
-# Add golang path
-export PATH=$PATH:$HOME/.dev/go/bin
 
 # Docbook
 export XML_CATALOG_FILES="/usr/local/etc/xml/catalog"
