@@ -205,6 +205,9 @@ if [[ "$(uname)" == "Darwin" ]]; then
     export PATH=$PATH:/Applications/TeX/TeXShop.app/Contents/Resources/TeXShop/bin
     export PATH=$PATH:/Library/TeX/Distributions/.DefaultTeX/Contents/Programs/texbin
 
+    # Go
+    export PATH=$PATH:/Users/robbie/Developments/go/bin
+
 fi
 # export MANPATH="/usr/local/man:$MANPATH"
 
