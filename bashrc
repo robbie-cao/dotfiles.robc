@@ -121,6 +121,7 @@ if [ "$(uname)" == "Darwin" ]; then
 
 elif [ "$(expr substr $(uname -s) 1 5)" == "Linux" ]; then
     export PATH=$PATH:$HOME/.bin
+    export PATH=$PATH:$HOME/Tools/gcc-arm-none-eabi-5_4-2016q2/bin
     #export PATH=$PATH:$HOME/Tools/android-sdk-linux/tools:$HOME/Tools/android-sdk-linux/platform-tools
     #export PATH=$PATH:$HOME/Tools/eclipse
     #export PATH=$PATH:$HOME/Tools/jdk1.6.0_45/bin
