@@ -219,17 +219,17 @@ source $ZSH/oh-my-zsh.sh
 
 # Path
 if [[ "$(uname)" == "Darwin" ]]; then
-    export PATH=$PATH:/Users/robbie/.bin
-    export PATH=$PATH:/Users/robbie/Developments/android-sdk-macosx/tools:/Users/robbie/Developments/android-sdk-macosx/platform-tools
+    export PATH=$PATH:$HOME/.bin
+    export PATH=$PATH:$HOME/Developments/android-sdk-macosx/tools:$HOME/Developments/android-sdk-macosx/platform-tools
 
 elif [[ "$(expr substr $(uname -s) 1 5)" == "Linux" ]]; then
-    export PATH=$PATH:/home/robbie/.bin
-    #export PATH=$PATH:/home/robbie/Tools/android-sdk-linux/tools:/home/robbie/Tools/android-sdk-linux/platform-tools
-    #export PATH=$PATH:/home/robbie/Tools/eclipse
-    #export PATH=$PATH:/home/robbie/Tools/jdk1.6.0_45/bin
-    #export JAVA_HOME=/home/robbie/Tools/jdk1.6.0_45
+    export PATH=$PATH:$HOME/.bin
+    #export PATH=$PATH:$HOME/Tools/android-sdk-linux/tools:$HOME/Tools/android-sdk-linux/platform-tools
+    #export PATH=$PATH:$HOME/Tools/eclipse
+    #export PATH=$PATH:$HOME/Tools/jdk1.6.0_45/bin
+    #export JAVA_HOME=$HOME/Tools/jdk1.6.0_45
 elif [[ "$(expr substr $(uname -s) 1 6)" == "CYGWIN" ]]; then
-    export PATH=$PATH:/home/robbie/.bin
+    export PATH=$PATH:$HOME/.bin
 else
     echo
 fi
