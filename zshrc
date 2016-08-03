@@ -224,13 +224,19 @@ if [[ "$(uname)" == "Darwin" ]]; then
 
 elif [[ "$(expr substr $(uname -s) 1 5)" == "Linux" ]]; then
     export PATH=$PATH:$HOME/.bin
-    export PATH=$PATH:$HOME/Tools/gcc-arm-none-eabi-5_4-2016q2/bin
+    # Path for gcc-arm-none-eabi
+    export PATH=$PATH:$HOME/Tools/gcc-arm-none-eabi/bin
+    # Path for android sdk
     #export PATH=$PATH:$HOME/Tools/android-sdk-linux/tools:$HOME/Tools/android-sdk-linux/platform-tools
+    # Path for android eclipse
     #export PATH=$PATH:$HOME/Tools/eclipse
+    # Path for java
     #export PATH=$PATH:$HOME/Tools/jdk1.6.0_45/bin
     #export JAVA_HOME=$HOME/Tools/jdk1.6.0_45
 elif [[ "$(expr substr $(uname -s) 1 6)" == "CYGWIN" ]]; then
     export PATH=$PATH:$HOME/.bin
+    # Path for gcc-arm-none-eabi
+    export PATH="$PATH:$HOME/Tools/gcc-arm-none-eabi/bin"
 else
     echo
 fi
@@ -328,8 +334,6 @@ elif [[ "$(expr substr $(uname -s) 1 5)" == "Linux" ]]; then
 elif [[ "$(expr substr $(uname -s) 1 6)" == "CYGWIN" ]]; then
     # Do something under Cygwin platform
     echo
-    # Path for gcc-arm-none-eabi
-    export PATH="$PATH:$HOME/Tools/gcc-arm-none-eabi-5_3-2016q1-20160330-win32/bin"
 else
     echo
 fi
