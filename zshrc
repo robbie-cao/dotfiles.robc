@@ -328,6 +328,8 @@ elif [[ "$(expr substr $(uname -s) 1 5)" == "Linux" ]]; then
 elif [[ "$(expr substr $(uname -s) 1 6)" == "CYGWIN" ]]; then
     # Do something under Cygwin platform
     echo
+    # Path for gcc-arm-none-eabi
+    export PATH="$PATH:$HOME/Tools/gcc-arm-none-eabi-5_3-2016q1-20160330-win32/bin"
 else
     echo
 fi
