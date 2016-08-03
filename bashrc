@@ -69,7 +69,7 @@ case "$TERM" in
         ;;
 esac
 
-# enable color support of ls and also add handy aliases
+# Enable color support of ls and also add handy aliases
 if [ -x /usr/bin/dircolors ]; then
     test -r ~/.dircolors && eval "$(dircolors -b ~/.dircolors)" || eval "$(dircolors -b)"
     alias ls='ls --color=auto'
@@ -91,7 +91,9 @@ alias lynx='lynx -display_charset=gb2312 -accept_all_cookies'
 
 # Set grep options
 # To exclude .git .svn
-export GREP_OPTIONS="--exclude-dir=\.svn --exclude-dir=\.git"
+GREP_OPTIONS="--exclude-dir=\.svn --exclude-dir=\.git"
+# GREP_OPTIONS is deprecated since 2.20, use alias instead
+alias grep="grep --color=auto $GREP_OPTIONS"
 
 # Add an "alert" alias for long running commands.  Use like so:
 #   sleep 10; alert
@@ -222,6 +224,8 @@ elif [ "$(expr substr $(uname -s) 1 5)" == "Linux" ]; then
 elif [ "$(expr substr $(uname -s) 1 6)" == "CYGWIN" ]; then
     # Do something under Cygwin platform
     echo
+    # Path for gcc-arm-none-eabi
+    export PATH="$PATH:$HOME/Tools/gcc-arm-none-eabi-5_3-2016q1-20160330-win32/bin"
 else
     echo
 fi
