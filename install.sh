@@ -31,6 +31,7 @@ list=(          \
     vmailrc     \
     lynx.cfg    \
     lynx.lss    \
+    quiltrc     \
 )
 
 for i in ${list[@]};
