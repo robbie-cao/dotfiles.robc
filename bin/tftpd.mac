@@ -1,0 +1,11 @@
+#!/bin/bash
+
+sudo launchctl unload -F /System/Library/LaunchDaemons/tftp.plist
+
+sudo launchctl load -F /System/Library/LaunchDaemons/tftp.plist
+
+# optional
+#sudo launchctl stop com.apple.tftpd
+
+sudo launchctl start com.apple.tftpd
+
