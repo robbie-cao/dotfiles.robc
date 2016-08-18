@@ -22,15 +22,21 @@ Config for tmux is from [xuxiaodong/tmuxen](https://github.com/xuxiaodong/tmuxen
 2. Install dependence packages
 
     - macos
-        * TODO
+
+        ```
+        $ brew install fortune cowsay cowsay screen tmux w3m
+        ```
 
     - ubuntu
-        * TODO
+
+        ```
+        $ sudo apt-get install fortune cowsay screen tmux w3m
+        ```
 
     - cygwin
         * TODO
 
-3. Run install.sh
+3. Run `install.sh`
 
 
 Enjoy!
