@@ -65,8 +65,8 @@
 [difftool]
     prompt = false
 [ghi]
-	token = !security find-internet-password -a robbie-cao -s github.com -l 'ghi token' -w
+    token = !security find-internet-password -a robbie-cao -s github.com -l 'ghi token' -w
 [filter "lfs"]
-	clean = git-lfs clean -- %f
-	smudge = git-lfs smudge -- %f
-	required = true
+    clean = git-lfs clean -- %f
+    smudge = git-lfs smudge -- %f
+    required = true
