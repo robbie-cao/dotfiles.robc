@@ -234,3 +234,6 @@ else
     echo
 fi
 
+function exip () { curl http://ipecho.net/plain; echo; }
+function extip () { lynx --dump http://ipecho.net/plain; }
+
