@@ -20,6 +20,9 @@
 # SCREEN SETTINGS
 # ------------------------------------------------------------------------------
 
+#term xterm-256color
+term screen-256color
+
 #startup_message off
 #nethack on
 
@@ -44,6 +47,7 @@ bind ^k
 bind ^\
 # Make them better
 bind \\ quit
+bind q quit
 bind K kill
 bind I login on
 bind O login off
@@ -115,7 +119,7 @@ defnonblock 5
 escape ^Ll
 
 # Enables support for the "alternate screen" terminal capability.
-altscreen on 
+altscreen on
 
 # Hardware Status Line
 hardstatus on
