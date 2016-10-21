@@ -225,18 +225,18 @@ if [[ "$(uname)" == "Darwin" ]]; then
 elif [[ "$(expr substr $(uname -s) 1 5)" == "Linux" ]]; then
     export PATH=$PATH:$HOME/.bin
     # Path for gcc-arm-none-eabi
-    export PATH=$PATH:$HOME/Tools/gcc-arm-none-eabi/bin
+    export PATH=$PATH:$HOME/.tools/gcc-arm-none-eabi/bin
     # Path for android sdk
-    #export PATH=$PATH:$HOME/Tools/android-sdk-linux/tools:$HOME/Tools/android-sdk-linux/platform-tools
+    #export PATH=$PATH:$HOME/.tools/android-sdk-linux/tools:$HOME/.tools/android-sdk-linux/platform-tools
     # Path for android eclipse
-    #export PATH=$PATH:$HOME/Tools/eclipse
+    #export PATH=$PATH:$HOME/.tools/eclipse
     # Path for java
-    #export PATH=$PATH:$HOME/Tools/jdk1.6.0_45/bin
-    #export JAVA_HOME=$HOME/Tools/jdk1.6.0_45
+    #export PATH=$PATH:$HOME/.tools/jdk1.6.0_45/bin
+    #export JAVA_HOME=$HOME/.tools/jdk1.6.0_45
 elif [[ "$(expr substr $(uname -s) 1 6)" == "CYGWIN" ]]; then
     export PATH=$PATH:$HOME/.bin
     # Path for gcc-arm-none-eabi
-    export PATH="$PATH:$HOME/Tools/gcc-arm-none-eabi/bin"
+    export PATH="$PATH:$HOME/.tools/gcc-arm-none-eabi/bin"
 else
     echo
 fi
@@ -312,6 +312,9 @@ if [[ "$(uname)" == "Darwin" ]]; then
     export PATH=$PATH:/Applications/TeX/TeXShop.app/Contents/Resources/TeXShop/bin
     export PATH=$PATH:/Library/TeX/Distributions/.DefaultTeX/Contents/Programs/texbin
 
+    # Go
+    export PATH=$PATH:$HOME/Developments/go/bin
+
 elif [[ "$(expr substr $(uname -s) 1 5)" == "Linux" ]]; then
     # Add RVM to PATH for scripting
     export PATH="$PATH:$HOME/.rvm/bin"
@@ -337,4 +340,7 @@ elif [[ "$(expr substr $(uname -s) 1 6)" == "CYGWIN" ]]; then
 else
     echo
 fi
+
+function exip () { curl http://ipecho.net/plain; echo; }
+function extip () { lynx --dump http://ipecho.net/plain; }
 
