@@ -21,13 +21,13 @@
 -cp33
 -ncdb
 -ce
--ci4
--cli0
 -d0
 -di1
 -nfc1
--i4         // indentation level to 4 spaces
--ts4        // tab-size to be 4
+-ci4        // continuation indent of n spaces
+-cli4       // case label indent of n spaces
+-i4         // indentation level to n spaces
+-ts4        // tab-size to be n
 -nut        // use spaces instead of tabs
 -ip0
 -l120       // maximum line length for non-comment lines to 120
