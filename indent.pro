@@ -1,5 +1,6 @@
 // Setup for indent
 //
+// Save it as ~/.indent.pro
 // Run indent in vim:
 //   :!indent %
 //
