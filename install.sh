@@ -19,6 +19,7 @@ list=(          \
     fetchmailrc \
     gitconfig   \
     inputrc     \
+    indent.pro  \
     mailcap     \
     msmtprc     \
     muttrc      \
