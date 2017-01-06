@@ -1,1 +1,12 @@
-username: "robbie.cao@gmail.com"password: name: "Robbie Cao"signature:date_format: "%b %d %I:%M%P"date_format_previous_years: "%b %d %Y"#server: "pop.exmail.qq.com"#port: 995#smtp_server: "smtp.exmail.qq.com"#smtp_port: 465#smtp_domain: 
+username: "robbie.cao@gmail.com"
+password: 
+name: "Robbie Cao"
+signature:
+date_format: "%b %d %I:%M%P"
+date_format_previous_years: "%b %d %Y"
+
+#server: "pop.exmail.qq.com"
+#port: 995
+#smtp_server: "smtp.exmail.qq.com"
+#smtp_port: 465
+#smtp_domain: 
