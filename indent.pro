@@ -1,4 +1,7 @@
-// indent setup
+// Setup for indent
+//
+// Run indent in vim:
+//   :!indent %
 //
 // Linux coding style
 // -nbad -bap -nbc -bbo -hnl -br -brs -c33 -cd33 -ncdb -ce -ci4
@@ -14,6 +17,7 @@
 -brs        // braces on struct declaration line
 -c33
 -cd33
+-cp33
 -ncdb
 -ce
 -ci4
@@ -21,21 +25,21 @@
 -d0
 -di1
 -nfc1
--i8
+-i4         // indentation level to 4 spaces
+-ts4        // tab-size to be 4
+-nut        // use spaces instead of tabs
 -ip0
--l120
+-l120       // maximum line length for non-comment lines to 120
 -lp
 -npcs
 -nprs
 -npsl
--sai
--saf
--saw
+-sai        // put a space after each if
+-saf        // put a space after each for
+-saw        // put a space after each while
 -ncs
 -nsc
 -sob
 -nfca
--cp33
--ss
--ts8
+-ss         // one-line for and while statements, force a blank before the semicolon
 -il1
