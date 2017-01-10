@@ -90,8 +90,8 @@ alias l='ls -CF'
 alias lynx='lynx -display_charset=gb2312 -accept_all_cookies'
 
 # Set grep options
-# To exclude .git .svn
-GREP_OPTIONS="--exclude-dir=\.svn --exclude-dir=\.git"
+# To exclude .git .svn and cscope files
+GREP_OPTIONS="--exclude-dir=\.svn --exclude-dir=\.git --exclude=cscope.\*"
 # GREP_OPTIONS is deprecated since 2.20, use alias instead
 alias grep="grep --color=auto $GREP_OPTIONS"
 
