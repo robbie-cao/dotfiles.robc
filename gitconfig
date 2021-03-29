@@ -1,6 +1,7 @@
 [core]
     whitespace = fix,-indent-with-non-tab,trailing-space,cr-at-eol
-    pager = less -S
+    #pager = less -S
+    pager = delta
     editor = vim
 [user]
     name = Robbie Cao
@@ -14,6 +15,8 @@
     branch = auto
     interactive = auto
     grep = auto
+    push = auto
+    remote = auto
 [color "branch"]
     current = green reverse
     local = yellow
@@ -28,6 +31,8 @@
     added = yellow
     changed = green
     untracked = cyan
+[grep]
+    lineNumber = true
 [alias]
     co = checkout
     br = branch -a -vv
@@ -37,10 +42,11 @@
     cb = checkout -b
     st = status
     up = pull -v
-    di = diff
+    d  = diff
     dt = difftool
     dc = difftool -y -x "colordiff"
     ds = difftool -y -x "sdiff"
+    di = difftool -y -x "icdiff"
     lo = log --graph --oneline
     ll = log --pretty=format:"%C(yellow)%h%Cred%d\\ %Creset%s%C(cyan)\\ [%cn]" --decorate --numstat
     la = log --pretty=format:"%C(yellow)%h\\ %C(green)%ad%Cred%d\\ %Creset%s%C(cyan)\\ [%cn]" --decorate=short --date=iso --graph --all
@@ -64,6 +70,30 @@
     tool = vimdiff
 [difftool]
     prompt = false
+[difftool "colordiff"]
+    cmd = /usr/bin/colordiff --line-numbers $LOCAL $REMOTE
+[difftool "icdiff"]
+    cmd = /usr/bin/icdiff --line-numbers $LOCAL $REMOTE
+[delta]
+    features = line-numbers side-by-side decorations
+    line-numbers = true
+    side-by-side = true
+[delta "decorations"]
+	minus-style = red bold normal
+	plus-style = green bold normal
+	minus-emph-style = white bold red
+	minus-non-emph-style = red bold normal
+	plus-emph-style = white bold green
+	plus-non-emph-style = green bold normal
+	file-style = yellow bold none
+	file-decoration-style = yellow box
+	hunk-header-style = magenta bold
+	hunk-header-decoration-style = magenta box
+	minus-empty-line-marker-style = normal normal
+	plus-empty-line-marker-style = normal normal
+    line-numbers-right-format = "{np:^4}│ "
+[interactive]
+    diffFilter = delta --color-only
 [ghi]
     token = !security find-internet-password -a robbie-cao -s github.com -l 'ghi token' -w
 [filter "lfs"]
