@@ -217,6 +217,8 @@ else
     echo
 fi
 
+export PATH=$PATH:$HOME/.local/bin
+
 # Docbook
 export XML_CATALOG_FILES="/usr/local/etc/xml/catalog"
 
