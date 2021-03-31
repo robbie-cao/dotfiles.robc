@@ -4,14 +4,16 @@
 # ack will search all files in the current directory & sub-directories
 
 #  Always sort the files
---sort−files
+#--sort−files
 
 #  Always color, even if piping to a another program
 --color
 # Use "less −r" as my pager
---pager
-less -r
+#--pager
+#less -R
 
+--ignore-dir=.git/
+--ignore-dir=.svn/
 --ignore-dir=.idea/
 --ignore-dir=node_modules/
 
