@@ -11,28 +11,30 @@ lnif() {
 }
 
 today=`date +%Y%m%d`
-list=(          \
-    bashrc      \
-    zshrc       \
-    byobu       \
-    dot_emacs   \
-    fetchmailrc \
-    gitconfig   \
-    inputrc     \
-    indent.pro  \
-    mailcap     \
-    msmtprc     \
-    muttrc      \
-    netrc       \
-    procmailrc  \
-    screenrc    \
-    tmux.conf   \
-    ackrc       \
-    w3m         \
-    vmailrc     \
-    lynx.cfg    \
-    lynx.lss    \
-    quiltrc     \
+list=(            \
+    bashrc        \
+    zshrc         \
+    profile.robc  \
+    profile.devel \
+    byobu         \
+    dot_emacs     \
+    fetchmailrc   \
+    gitconfig     \
+    inputrc       \
+    indent.pro    \
+    mailcap       \
+    msmtprc       \
+    muttrc        \
+    netrc         \
+    procmailrc    \
+    screenrc      \
+    tmux.conf     \
+    ackrc         \
+    w3m           \
+    vmailrc       \
+    lynx.cfg      \
+    lynx.lss      \
+    quiltrc       \
 )
 
 for i in ${list[@]};
