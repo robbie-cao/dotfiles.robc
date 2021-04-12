@@ -128,14 +128,14 @@ hardstatus string "%{= kG}[%{G}%H%{g}][%= %{= kw}%?%-Lw%?%{r}(%{W}%n*%f%t%?(%u)%
 
 # Default windows
 screen -t bash
-screen -t vim
-screen -t code
-screen -t git
-screen -t make
-screen -t log
-screen -t trace
-screen -t misc
-screen -t others
-screen -t tmp
+#screen -t vim
+#screen -t code
+#screen -t git
+#screen -t make
+#screen -t log
+#screen -t trace
+#screen -t misc
+#screen -t others
+#screen -t tmp
 select 0
 
