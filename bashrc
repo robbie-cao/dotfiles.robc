@@ -13,8 +13,8 @@ HISTCONTROL=ignoredups:ignorespace
 shopt -s histappend
 
 # for setting history length see HISTSIZE and HISTFILESIZE in bash(1)
-HISTSIZE=1000
-HISTFILESIZE=2000
+HISTSIZE=10240
+HISTFILESIZE=20480
 
 # check the window size after each command and, if necessary,
 # update the values of LINES and COLUMNS.
@@ -81,22 +81,9 @@ if [ -x /usr/bin/dircolors ]; then
     alias egrep='egrep --color=auto'
 fi
 
-# Some more ls aliases
-alias ll='ls -alF'
-alias la='ls -A'
-alias l='ls -CF'
-
-# Lynx, to display Chinese character
-alias lynx='lynx -display_charset=gb2312 -accept_all_cookies'
-
-# Set grep options
-# To exclude .git .svn and cscope files
-GREP_OPTIONS="--exclude-dir=\.svn --exclude-dir=\.git --exclude=cscope.\*"
-# GREP_OPTIONS is deprecated since 2.20, use alias instead
-alias grep="grep --color=auto $GREP_OPTIONS"
 
 # Add an "alert" alias for long running commands.  Use like so:
-#   sleep 10; alert
+# sleep 10; alert
 alias alert='notify-send --urgency=low -i "$([ $? = 0 ] && echo terminal || echo error)" "$(history|tail -n1|sed -e '\''s/^\s*[0-9]\+\s*//;s/[;&|]\s*alert$//'\'')"'
 
 # Alias definitions.
@@ -108,134 +95,19 @@ if [ -f ~/.bash_aliases ]; then
     . ~/.bash_aliases
 fi
 
-# enable programmable completion features (you don't need to enable
+# Enable programmable completion features (you don't need to enable
 # this, if it's already enabled in /etc/bash.bashrc and /etc/profile
 # sources /etc/bash.bashrc).
 if [ -f /etc/bash_completion ] && ! shopt -oq posix; then
     . /etc/bash_completion
 fi
 
-# Path
-
-if [ "$(uname)" == "Darwin" ]; then
-    export PATH=$PATH:$HOME/.bin
-    export PATH=$PATH:$HOME/Developments/android-sdk-macosx/tools:$HOME/Developments/android-sdk-macosx/platform-tools
-
-elif [ "$(expr substr $(uname -s) 1 5)" == "Linux" ]; then
-    export PATH=$PATH:$HOME/.bin
-    # Path for gcc-arm-none-eabi
-    export PATH=$PATH:$HOME/.tools/gcc-arm-none-eabi/bin
-    # Path for android sdk
-    #export PATH=$PATH:$HOME/.tools/android-sdk-linux/tools:$HOME/.tools/android-sdk-linux/platform-tools
-    # Path for android eclipse
-    #export PATH=$PATH:$HOME/.tools/eclipse
-    # Path for java
-    #export PATH=$PATH:$HOME/.tools/jdk1.6.0_45/bin
-    #export JAVA_HOME=$HOME/.tools/jdk1.6.0_45
-elif [ "$(expr substr $(uname -s) 1 6)" == "CYGWIN" ]; then
-    export PATH=$PATH:$HOME/.bin
-    # Path for gcc-arm-none-eabi
-    export PATH="$PATH:$HOME/.tools/gcc-arm-none-eabi/bin"
-else
-    echo
+# include .profile.arm if it exists
+if [ -f "$HOME/.profile.arm" ]; then
+    . "$HOME/.profile.arm"
 fi
 
-# Preferred editor for local and remote sessions
-# if [[ -n $SSH_CONNECTION ]]; then
-#   export EDITOR='vim'
-# else
-#   export EDITOR='mvim'
-# fi
-export EDITOR='vim'
-
-# Compilation flags
-# export ARCHFLAGS="-arch x86_64"
-
-# ssh
-# export SSH_KEY_PATH="~/.ssh/dsa_id"
-
-# Setup for vmail
-if [ "$(uname)" == "Darwin" ]; then
-    export VMAIL_VIM='mvim -v'
+# include .profile.robc if it exists
+if [ -f "$HOME/.profile.robc" ]; then
+    . "$HOME/.profile.robc"
 fi
-
-
-#export ARCH=i386
-
-# Setup for minicom
-if [[ "$(uname)" == "Darwin" ]]; then
-    export MINICOM="-c on -C ~/Log/minicom.log.`date +%Y%m%d.%H%M`"
-fi
-
-# Forward X display to X-Server
-# Not need to the following 3 lines if enable X11 forwarding in PuTTY
-#if [ "$SSH_CONNECTION" != '' ]; then
-#    export DISPLAY=`echo $SSH_CONNECTION | awk '{print $1}' | awk -F: '{if ($1 == "") print $4; else print $1}'`:0
-#fi
-
-# Alias for ssh
-alias rxp='ssh robc-xp'
-alias rit='ssh 120.24.216.37'
-
-# Alias for MacVim in terminal
-if [ "$(uname)" == "Darwin" ]; then
-    alias v='mvim -v'
-fi
-
-# Alias for gist
-alias gist='gist -o -s'
-
-# Platform specific
-if [ "$(uname)" == "Darwin" ]; then
-    # brew Command tab-completion
-    source $(brew --repository)/Library/Contributions/brew_bash_completion.sh
-
-    # Add RVM to PATH for scripting
-    export PATH="$PATH:$HOME/.rvm/bin"
-    # Add brew path
-    export PATH=$PATH:$(brew --prefix)/bin
-    # Add python path
-    export PYTHONPATH="/usr/local/lib/python2.7/site-packages/"
-    #python -c 'import sys,pprint;pprint.pprint(sys.path)'
-
-    # Docbook
-    export XML_CATALOG_FILES="/usr/local/etc/xml/catalog"
-
-    # TeX
-    export PATH=$PATH:/Applications/TeX/TeXShop.app/Contents/Resources/TeXShop/bin
-    export PATH=$PATH:/Library/TeX/Distributions/.DefaultTeX/Contents/Programs/texbin
-
-    # Go
-    export PATH=$PATH:$HOME/Developments/go/bin
-
-elif [ "$(expr substr $(uname -s) 1 5)" == "Linux" ]; then
-    # Add RVM to PATH for scripting
-    export PATH="$PATH:$HOME/.rvm/bin"
-elif [ "$(expr substr $(uname -s) 1 6)" == "CYGWIN" ]; then
-    echo
-else
-    echo
-fi
-
-export PATH=$PATH:$HOME/.local/bin
-
-# Docbook
-export XML_CATALOG_FILES="/usr/local/etc/xml/catalog"
-
-# A funny output when you start a new bash
-if [ "$(uname)" == "Darwin" ]; then
-    # Do something under Mac OS X platform
-    archey
-elif [ "$(expr substr $(uname -s) 1 5)" == "Linux" ]; then
-    # Do something under Linux platform
-    fortune | cowsay -f tux
-elif [ "$(expr substr $(uname -s) 1 6)" == "CYGWIN" ]; then
-    # Do something under Cygwin platform
-    echo
-else
-    echo
-fi
-
-function exip () { curl http://ipecho.net/plain; echo; }
-function extip () { lynx --dump http://ipecho.net/plain; }
-
