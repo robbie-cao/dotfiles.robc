@@ -1,167 +1,41 @@
-# Path to your oh-my-zsh installation.
-export ZSH=~/.oh-my-zsh
+# If you come from bash you might have to change your $PATH.
+# export PATH=$HOME/bin:/usr/local/bin:$PATH
 
-# Set name of the theme to load.
-# Look in ~/.oh-my-zsh/themes/
-# Optionally, if you set this to "random", it'll load a random theme each
-# time that oh-my-zsh is loaded.
-#
-# Available themes
-# 3den
-# Soliah
-# adben
-# af-magic
-# afowler
-# agnoster
-# alanpeabody
-# amuse
-# apple
-# arrow
-# aussiegeek
-# avit
-# awesomepanda
-# bira
-# blinks
-# bureau
-# candy-kingdom
-# candy
-# clean
-# cloud
-# crcandy
-# crunch
-# cypher
-# dallas
-# darkblood
-# daveverwer
-# dieter
-# dogenpunk
-# dpoggi
-# dst
-# dstufft
-# duellj
-# eastwood
-# edvardm
-# emotty
-# essembeh
-# evan
-# example
-# fino-time
-# fino
-# fishy
-# flazz
-# fletcherm
-# fox
-# frisk
-# frontcube
-# funky
-# fwalch
-# gallifrey
-# gallois
-# garyblessington
-# gentoo
-# geoffgarside
-# gianu
-# gnzh
-# gozilla
-# half-life
-# humza
-# imajes
-# intheloop
-# itchy
-# jaischeema
-# jbergantine
-# jispwoso
-# jnrowe
-# jonathan
-# josh
-# jreese
-# jtriley
-# juanghurtado
-# junkfood
-# kafeitu
-# kardan
-# kennethreitz
-# kiwi
-# kolo
-# kphoen
-# lambda
-# linuxonly
-# lukerandall
-# macovsky-ruby
-# macovsky
-# maran
-# mgutz
-# mh
-# michelebologna
-# mikeh
-# miloshadzic
-# minimal
-# mira
-# mortalscumbag
-# mrtazz
-# murilasso
-# muse
-# nanotech
-# nebirhos
-# nicoulaj
-# norm
-# obraun
-# peepcode
-# philips
-# pmcgee
-# pure
-# pygmalion
-# re5et
-# rgm
-# risto
-# rixius
-# rkj-repos
-# rkj
-# robbyrussell
-# sammy
-# simonoff
-# simple
-# skaro
-# smt
-# sonicradish
-# sorin
-# sporty_256
-# steeef
-# strug
-# sunaku
-# sunrise
-# superjarin
-# suvash
-# takashiyoshida
-# terminalparty
-# theunraveler
-# tjkirch
-# tjkirch_mod
-# tonotdo
-# trapd00r
-# wedisagree
-# wezm+
-# wezm
-# wuffers
-# xiong-chiamiov-plus
-# xiong-chiamiov
-# ys
-# zhann
-#
-ZSH_THEME="robbyrussell"
+# Path to your oh-my-zsh installation.
+export ZSH="/home/robc/.oh-my-zsh"
+
+# Set name of the theme to load --- if set to "random", it will
+# load a random theme each time oh-my-zsh is loaded, in which case,
+# to know which specific one was loaded, run: echo $RANDOM_THEME
+# See https://github.com/ohmyzsh/ohmyzsh/wiki/Themes
+#ZSH_THEME="robbyrussell"
+#ZSH_THEME="tjkirch"
+ZSH_THEME="amuse"
+
+# Set list of themes to pick from when loading at random
+# Setting this variable when ZSH_THEME=random will cause zsh to load
+# a theme from this variable instead of looking in $ZSH/themes/
+# If set to an empty array, this variable will have no effect.
+# ZSH_THEME_RANDOM_CANDIDATES=( "robbyrussell" "agnoster" )
 
 # Uncomment the following line to use case-sensitive completion.
 # CASE_SENSITIVE="true"
 
-# Uncomment the following line to use hyphen-insensitive completion. Case
-# sensitive completion must be off. _ and - will be interchangeable.
+# Uncomment the following line to use hyphen-insensitive completion.
+# Case-sensitive completion must be off. _ and - will be interchangeable.
 # HYPHEN_INSENSITIVE="true"
 
 # Uncomment the following line to disable bi-weekly auto-update checks.
 # DISABLE_AUTO_UPDATE="true"
 
+# Uncomment the following line to automatically update without prompting.
+# DISABLE_UPDATE_PROMPT="true"
+
 # Uncomment the following line to change how often to auto-update (in days).
 export UPDATE_ZSH_DAYS=30
+
+# Uncomment the following line if pasting URLs and other text is messed up.
+# DISABLE_MAGIC_FUNCTIONS="true"
 
 # Uncomment the following line to disable colors in ls.
 # DISABLE_LS_COLORS="true"
@@ -170,10 +44,12 @@ export UPDATE_ZSH_DAYS=30
 # DISABLE_AUTO_TITLE="true"
 
 # Uncomment the following line to enable command auto-correction.
-# ENABLE_CORRECTION="true"
+ENABLE_CORRECTION="true"
 
 # Uncomment the following line to display red dots whilst waiting for completion.
-COMPLETION_WAITING_DOTS="true"
+# Caution: this setting can cause issues with multiline prompts (zsh 5.7.1 and newer seem to work)
+# See https://github.com/ohmyzsh/ohmyzsh/issues/5765
+# COMPLETION_WAITING_DOTS="true"
 
 # Uncomment the following line if you want to disable marking untracked files
 # under VCS as dirty. This makes repository status check for large repositories
@@ -182,78 +58,33 @@ DISABLE_UNTRACKED_FILES_DIRTY="true"
 
 # Uncomment the following line if you want to change the command execution time
 # stamp shown in the history command output.
-# The optional three formats: "mm/dd/yyyy"|"dd.mm.yyyy"|"yyyy-mm-dd"
+# You can set one of the optional three formats:
+# "mm/dd/yyyy"|"dd.mm.yyyy"|"yyyy-mm-dd"
+# or set a custom format using the strftime function format specifications,
+# see 'man strftime' for details.
 HIST_STAMPS="yyyy-mm-dd"
 
 # Would you like to use another custom folder than $ZSH/custom?
 # ZSH_CUSTOM=/path/to/new-custom-folder
 
-# Which plugins would you like to load? (plugins can be found in ~/.oh-my-zsh/plugins/*)
-# Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
+# Which plugins would you like to load?
+# Standard plugins can be found in $ZSH/plugins/
+# Custom plugins may be added to $ZSH_CUSTOM/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
-plugins=(git git-extras github svn battery autojump common-alias command-not-found colored-man-pages web-search pip bower npm perl python ruby brew screen)
+plugins=(git colorize command-not-found)
+
+source $ZSH/oh-my-zsh.sh
 
 # User configuration
 
-export PATH=$PATH:/opt/local/bin:/opt/local/sbin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/git/bin
-
-# Path for macos
-if [[ "$(uname)" == "Darwin" ]]; then
-    export PATH=$PATH:~/Developments/android-sdk-macosx/platform-tools:~/Developments/android-sdk-macosx/tools
-    export PATH=$PATH:~/.rvm/bin
-    # TeX
-    export PATH=$PATH:/Applications/TeX/TeXShop.app/Contents/Resources/TeXShop/bin
-    export PATH=$PATH:/Library/TeX/Distributions/.DefaultTeX/Contents/Programs/texbin
-
-    # Go
-    export PATH=$PATH:$HOME/Developments/go/bin
-
-fi
 # export MANPATH="/usr/local/man:$MANPATH"
-
-source $ZSH/oh-my-zsh.sh
 
 # You may need to manually set your language environment
 # export LANG=en_US.UTF-8
 
-# Path
-if [[ "$(uname)" == "Darwin" ]]; then
-    export PATH=$PATH:$HOME/.bin
-    export PATH=$PATH:$HOME/Developments/android-sdk-macosx/tools:$HOME/Developments/android-sdk-macosx/platform-tools
-
-elif [[ "$(expr substr $(uname -s) 1 5)" == "Linux" ]]; then
-    export PATH=$PATH:$HOME/.bin
-    # Path for gcc-arm-none-eabi
-    export PATH=$PATH:$HOME/.tools/gcc-arm-none-eabi/bin
-    # Path for android sdk
-    #export PATH=$PATH:$HOME/.tools/android-sdk-linux/tools:$HOME/.tools/android-sdk-linux/platform-tools
-    # Path for android eclipse
-    #export PATH=$PATH:$HOME/.tools/eclipse
-    # Path for java
-    #export PATH=$PATH:$HOME/.tools/jdk1.6.0_45/bin
-    #export JAVA_HOME=$HOME/.tools/jdk1.6.0_45
-elif [[ "$(expr substr $(uname -s) 1 6)" == "CYGWIN" ]]; then
-    export PATH=$PATH:$HOME/.bin
-    # Path for gcc-arm-none-eabi
-    export PATH="$PATH:$HOME/.tools/gcc-arm-none-eabi/bin"
-else
-    echo
-fi
-
-# Preferred editor for local and remote sessions
-# if [[ -n $SSH_CONNECTION ]]; then
-#   export EDITOR='vim'
-# else
-#   export EDITOR='mvim'
-# fi
-export EDITOR='vim'
-
 # Compilation flags
 # export ARCHFLAGS="-arch x86_64"
-
-# ssh
-# export SSH_KEY_PATH="~/.ssh/dsa_id"
 
 # Set personal aliases, overriding those provided by oh-my-zsh libs,
 # plugins, and themes. Aliases can be placed here, though oh-my-zsh
@@ -263,84 +94,14 @@ export EDITOR='vim'
 # Example aliases
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
+#
 
-# Setup for vmail
-if [[ "$(uname)" == "Darwin" ]]; then
-    export VMAIL_VIM='mvim -v'
+# include .profile.arm if it exists
+if [ -f "$HOME/.profile.arm" ]; then
+    . "$HOME/.profile.arm"
 fi
 
-# Setup for minicom
-if [[ "$(uname)" == "Darwin" ]]; then
-    export MINICOM="-c on -C ~/Log/minicom.log.`date +%Y%m%d.%H%M`"
+# include .profile.robc if it exists
+if [ -f "$HOME/.profile.robc" ]; then
+    . "$HOME/.profile.robc"
 fi
-
-# Forward X display to X-Server
-# Not need to the following 3 lines if enable X11 forwarding in PuTTY
-#if [ "$SSH_CONNECTION" != '' ]; then
-#    export DISPLAY=`echo $SSH_CONNECTION | awk '{print $1}' | awk -F: '{if ($1 == "") print $4; else print $1}'`:0
-#fi
-
-# Alias for ssh
-alias rxp='ssh robc-xp'
-alias rit='ssh 120.24.216.37'
-
-# Alias for MacVim in terminal
-if [[ "$(uname)" == "Darwin" ]]; then
-    alias v='mvim -v'
-fi
-
-# Alias for gist
-alias gist='gist -o -s'
-
-# Path
-export PATH=$PATH:~/.bin
-# Platform specific
-if [[ "$(uname)" == "Darwin" ]]; then
-    export PATH=$PATH:~/Developments/android-sdk-macosx/platform-tools:~/Developments/android-sdk-macosx/tools
-    export PATH=$PATH:~/.rvm/bin
-    # TeX
-    export PATH=$PATH:/Applications/TeX/TeXShop.app/Contents/Resources/TeXShop/bin
-    export PATH=$PATH:/Library/TeX/Distributions/.DefaultTeX/Contents/Programs/texbin
-    # Add python path
-    export PYTHONPATH="/usr/local/lib/python2.7/site-packages/"
-    #python -c 'import sys,pprint;pprint.pprint(sys.path)'
-
-    # Docbook
-    export XML_CATALOG_FILES="/usr/local/etc/xml/catalog"
-
-    # TeX
-    export PATH=$PATH:/Applications/TeX/TeXShop.app/Contents/Resources/TeXShop/bin
-    export PATH=$PATH:/Library/TeX/Distributions/.DefaultTeX/Contents/Programs/texbin
-
-    # Go
-    export PATH=$PATH:$HOME/Developments/go/bin
-
-elif [[ "$(expr substr $(uname -s) 1 5)" == "Linux" ]]; then
-    # Add RVM to PATH for scripting
-    export PATH="$PATH:$HOME/.rvm/bin"
-elif [[ "$(expr substr $(uname -s) 1 6)" == "CYGWIN" ]]; then
-    echo
-else
-    echo
-fi
-
-# Docbook
-export XML_CATALOG_FILES="/usr/local/etc/xml/catalog"
-
-# A funny output when you start a new bash
-if [[ "$(uname)" == "Darwin" ]]; then
-    # Do something under Mac OS X platform
-    archey
-elif [[ "$(expr substr $(uname -s) 1 5)" == "Linux" ]]; then
-    # Do something under Linux platform
-    fortune | cowsay -f tux
-elif [[ "$(expr substr $(uname -s) 1 6)" == "CYGWIN" ]]; then
-    # Do something under Cygwin platform
-    echo
-else
-    echo
-fi
-
-function exip () { curl http://ipecho.net/plain; echo; }
-function extip () { lynx --dump http://ipecho.net/plain; }
-
