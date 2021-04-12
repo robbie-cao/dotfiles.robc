@@ -6,6 +6,12 @@
 [user]
     name = Robbie Cao
     email = robbie.cao@gmail.com
+[author]
+    name = Robbie Cao
+    email = robbie.cao@arm.com
+[committer]
+    name = Robbie Cao
+    email = robbie.cao@arm.com
 [push]
     default = matching
 [color]
@@ -52,11 +58,13 @@
     la = log --pretty=format:"%C(yellow)%h\\ %C(green)%ad%Cred%d\\ %Creset%s%C(cyan)\\ [%cn]" --decorate=short --date=iso --graph --all
     ld = log --pretty=format:"%C(yellow)%h\\ %C(green)%ad%Cred%d\\ %Creset%s%C(cyan)\\ [%cn]" --decorate=short --date=iso --graph
     ls = log --pretty=format:"%C(green)%h\\ %C(yellow)[%ad]%Cred%d\\ %Creset%s%C(magenta)\\ [%cn]" --decorate --date=relative --graph
+    lg = log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit --date=relative
     lr = log -g --abbrev-commit --pretty=oneline
     rf = reflog
     ra = reflog show --all
     rp = reflog show --all --pretty
     rl = reflog show --pretty=format:"%C(yellow)%h\\ %C(green)%ad%Cred%d\\ %Creset%s%C(cyan)\\ [%cn]" --decorate=short --date=iso --all
+    pr = push origin HEAD:refs/for/master
     sync = pull -v --rebase
     last = log -3 HEAD
     integrate = merge --no-ff
