@@ -1,0 +1,120 @@
+# Own profile
+# Will be included and executed in .bashrc/.zshrc
+
+function exip () { curl http://ipecho.net/plain; echo; }
+function extip () { lynx --dump http://ipecho.net/plain; }
+
+# Some more ls aliases
+alias ll='ls -alF'
+alias la='ls -A'
+alias l='ls -CF'
+
+# Lynx, to display Chinese character
+alias lynx='lynx -display_charset=gb2312 -accept_all_cookies'
+
+alias grep="grep --color=auto --exclude-dir={build,.bzr,CVS,.git,.hg,.svn,.idea,.tox}"
+
+# Preferred editor for local and remote sessions
+# if [[ -n $SSH_CONNECTION ]]; then
+#   export EDITOR='vim'
+# else
+#   export EDITOR='mvim'
+# fi
+export EDITOR='vim'
+
+# Compilation flags
+# export ARCHFLAGS="-arch x86_64"
+
+# ssh
+# export SSH_KEY_PATH="~/.ssh/dsa_id"
+
+
+# You may need to manually set your language environment
+# export LANG=en_US.UTF-8
+
+# Compilation flags
+# export ARCHFLAGS="-arch x86_64"
+# export ARCH=i386
+
+# Forward X display to X-Server
+# Not need to the following 3 lines if enable X11 forwarding in PuTTY
+#if [ "$SSH_CONNECTION" != '' ]; then
+#    export DISPLAY=`echo $SSH_CONNECTION | awk '{print $1}' | awk -F: '{if ($1 == "") print $4; else print $1}'`:0
+#fi
+
+
+# set PATH so it includes user's private bin if it exists
+if [ -d "$HOME/bin" ] ; then
+    PATH="$HOME/bin:$PATH"
+fi
+
+if [ -d "$HOME/.bin" ] ; then
+    PATH="$HOME/.bin:$PATH"
+fi
+
+if [ -d "$HOME/.local/bin" ] ; then
+    PATH="$HOME/.local/bin:$PATH"
+fi
+
+# Alias for gist
+alias gist='gist -o -s'
+
+if [[ "$(uname)" == "Darwin" ]]; then
+    # Alias for MacVim in terminal
+    alias v='mvim -v'
+    # Setup for vmail
+    export VMAIL_VIM='mvim -v'
+fi
+
+# Setup for minicom
+if [[ "$(uname)" == "Darwin" ]]; then
+    export MINICOM="-c on -C ~/Log/minicom.log.`date +%Y%m%d.%H%M`"
+fi
+
+# Platform specific
+if [[ "$(uname)" == "Darwin" ]]; then
+    # brew Command tab-completion
+    source $(brew --repository)/Library/Contributions/brew_bash_completion.sh
+
+    # Add RVM to PATH for scripting
+    export PATH="$PATH:$HOME/.rvm/bin"
+    # Add brew path
+    export PATH=$PATH:$(brew --prefix)/bin
+    # Add python path
+    export PYTHONPATH="/usr/local/lib/python2.7/site-packages/"
+    #python -c 'import sys,pprint;pprint.pprint(sys.path)'
+
+    # Docbook
+    export XML_CATALOG_FILES="/usr/local/etc/xml/catalog"
+
+    # TeX
+    export PATH=$PATH:/Applications/TeX/TeXShop.app/Contents/Resources/TeXShop/bin
+    export PATH=$PATH:/Library/TeX/Distributions/.DefaultTeX/Contents/Programs/texbin
+
+    # Go
+    export PATH=$PATH:$HOME/Developments/go/bin
+
+elif [[ "$(expr substr $(uname -s) 1 5)" == "Linux" ]]; then
+    # Add RVM to PATH for scripting
+    export PATH="$PATH:$HOME/.rvm/bin"
+    # Docbook
+    export XML_CATALOG_FILES="/usr/local/etc/xml/catalog"
+elif [[ "$(expr substr $(uname -s) 1 6)" == "CYGWIN" ]]; then
+    echo
+else
+    echo
+fi
+
+# A funny output when you start a new bash
+if [[ "$(uname)" == "Darwin" ]]; then
+    # Do something under Mac OS X platform
+    archey
+elif [[ "$(expr substr $(uname -s) 1 5)" == "Linux" ]]; then
+    # Do something under Linux platform
+    fortune | cowsay -f tux
+elif [[ "$(expr substr $(uname -s) 1 6)" == "CYGWIN" ]]; then
+    # Do something under Cygwin platform
+    echo
+else
+    echo
+fi
