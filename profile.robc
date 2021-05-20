@@ -9,10 +9,23 @@ alias ll='ls -alF'
 alias la='ls -A'
 alias l='ls -CF'
 
-# Lynx, to display Chinese character
-alias lynx='lynx -display_charset=gb2312 -accept_all_cookies'
-
 alias grep="grep --color=auto --exclude-dir={build,.bzr,CVS,.git,.hg,.svn,.idea,.tox}"
+
+# Lynx, to display Chinese character
+if [ -x /usr/bin/lynx ]; then
+    alias lynx='lynx -display_charset=gb2312 -accept_all_cookies'
+fi
+
+if [ -x /usr/bin/fzf ]; then
+    alias fz=fzf
+    alias ft=fzf-tmux
+    alias vf='vim $(fzf)'
+    alias vt='vim $(fzf-tmux -r 40% --multi)'
+    # Default options for fzf
+    export FZF_DEFAULT_OPTS='--height 40% --layout=reverse'
+    export FZF_CTRL_T_OPTS="--preview '(highlight -O ansi -l {} 2> /dev/null || cat {} || tree -C {}) 2> /dev/null | head -200'"
+    export FZF_ALT_C_OPTS="--preview 'tree -C {} | head -200'"
+fi
 
 # Preferred editor for local and remote sessions
 # if [[ -n $SSH_CONNECTION ]]; then
@@ -58,6 +71,7 @@ fi
 
 # Alias for gist
 alias gist='gist -o -s'
+
 
 if [[ "$(uname)" == "Darwin" ]]; then
     # Alias for MacVim in terminal
