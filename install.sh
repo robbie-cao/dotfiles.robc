@@ -35,6 +35,7 @@ list=(            \
     lynx.cfg      \
     lynx.lss      \
     quiltrc       \
+    globalrc      \
 )
 
 for i in ${list[@]};
