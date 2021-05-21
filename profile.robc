@@ -16,6 +16,15 @@ if [ -x /usr/bin/lynx ]; then
     alias lynx='lynx -display_charset=gb2312 -accept_all_cookies'
 fi
 
+if [ -x /usr/bin/fdfind ]; then
+	alias f=fdfind
+	alias fd=fdfind
+fi
+
+if [ -x /usr/bin/fd ]; then
+	alias fdt=/usr/bin/fd
+fi
+
 if [ -x /usr/bin/fzf ]; then
     # Default options for fzf
     export FZF_CTRL_T_OPTS="--preview '(highlight -O ansi -l {} 2> /dev/null || cat {} || tree -C {}) 2> /dev/null | head -200'"
