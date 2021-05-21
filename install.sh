@@ -38,6 +38,9 @@ list=(            \
     globalrc      \
 )
 
+# Download plantuml.jar
+wget http://sourceforge.net/projects/plantuml/files/plantuml.jar/download -O lib/plantuml.jar
+
 for i in ${list[@]};
 do
     echo "Install $i";
