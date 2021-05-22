@@ -97,7 +97,7 @@ fi
 # Platform specific
 if [[ "$(uname)" == "Darwin" ]]; then
     # brew Command tab-completion
-    source $(brew --repository)/Library/Contributions/brew_bash_completion.sh
+    #source $(brew --repository)/Library/Contributions/brew_bash_completion.sh
 
     # Add RVM to PATH for scripting
     export PATH="$PATH:$HOME/.rvm/bin"
@@ -108,14 +108,14 @@ if [[ "$(uname)" == "Darwin" ]]; then
     #python -c 'import sys,pprint;pprint.pprint(sys.path)'
 
     # Docbook
-    export XML_CATALOG_FILES="/usr/local/etc/xml/catalog"
+    #export XML_CATALOG_FILES="/usr/local/etc/xml/catalog"
 
     # TeX
-    export PATH=$PATH:/Applications/TeX/TeXShop.app/Contents/Resources/TeXShop/bin
-    export PATH=$PATH:/Library/TeX/Distributions/.DefaultTeX/Contents/Programs/texbin
+    #export PATH=$PATH:/Applications/TeX/TeXShop.app/Contents/Resources/TeXShop/bin
+    #export PATH=$PATH:/Library/TeX/Distributions/.DefaultTeX/Contents/Programs/texbin
 
     # Go
-    export PATH=$PATH:$HOME/Developments/go/bin
+    #export PATH=$PATH:$HOME/Developments/go/bin
 
 elif [[ "$(expr substr $(uname -s) 1 5)" == "Linux" ]]; then
     # Add RVM to PATH for scripting
