@@ -32,6 +32,7 @@ if [ -x /usr/bin/fzf ]; then
     export FZF_DEFAULT_OPTS="--height 40% --layout=reverse --preview '(highlight -O ansi -l {} 2> /dev/null || cat {} || tree -C {}) 2> /dev/null | head -200'"
     alias fz=fzf
     alias ft=fzf-tmux
+	alias fv='fzf --height 90%'
     alias vf='vim $(fzf)'
     alias vt='vim $(fzf-tmux -r 80% --multi)'
 fi
