@@ -86,6 +86,27 @@ do
     ln -sf $cwd/lib/$i $lib/$i;
 done
 
+echo "Installing tools"
+sudo apt install \
+    fortune cowsay \
+    tmux screen \
+    curl wget netcat \
+    git subversion \
+    vim emacs \
+    cscope exuberant-ctags
+
+echo "Installing system monitoring tools"
+sudo apt install htop atop iotop iftop nmon
+
+echo "Installing jq - command-line JSON processor"
+sudo apt install jq
+
+echo "Installing ripgrep"
+sudo apt install ripgrep
+
+echo "Installing fzf"
+git clone --depth 1 https://github.com/junegunn/fzf.git ~/.fzf
+~/.fzf/install
 
 echo "Install Done!"
 
