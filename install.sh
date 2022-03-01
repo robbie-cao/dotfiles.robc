@@ -89,6 +89,7 @@ done
 echo "Installing tools"
 sudo apt install \
     fortune cowsay \
+    lynx w3m \
     tmux screen \
     curl wget netcat \
     git subversion \
@@ -98,8 +99,18 @@ sudo apt install \
 echo "Installing system monitoring tools"
 sudo apt install htop atop iotop iftop nmon
 
+echo "Installing python"
+sudo apt install python3 python3-venv python3-pip
+
 echo "Installing jq - command-line JSON processor"
 sudo apt install jq
+
+echo "Installing fd-find - an alternative to find"
+sudo apt install fd-find
+
+# https://ohmyz.sh/#install
+echo "Installing oh-my-zsh"
+sh -c "$(wget https://raw.github.com/ohmyzsh/ohmyzsh/master/tools/install.sh -O -)"
 
 echo "Installing ripgrep"
 sudo apt install ripgrep
