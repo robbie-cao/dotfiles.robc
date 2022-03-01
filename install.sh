@@ -108,6 +108,11 @@ sudo apt install jq
 echo "Installing fd-find - an alternative to find"
 sudo apt install fd-find
 
+echo "Installing git-delta - a syntax highlight pager"
+wget https://github.com/dandavison/delta/releases/download/0.12.0/git-delta_0.12.0_amd64.deb -O git-delta.deb
+sudo dpkg -i git-delta.deb
+rm -f git-delta.deb
+
 # https://ohmyz.sh/#install
 echo "Installing oh-my-zsh"
 sh -c "$(wget https://raw.github.com/ohmyzsh/ohmyzsh/master/tools/install.sh -O -)"
