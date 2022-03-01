@@ -93,8 +93,7 @@ sudo apt install \
     tmux screen \
     curl wget netcat \
     git subversion \
-    vim emacs \
-    cscope exuberant-ctags
+    vim emacs
 
 echo "Installing system monitoring tools"
 sudo apt install htop atop iotop iftop nmon
@@ -104,6 +103,9 @@ sudo apt install python3 python3-venv python3-pip
 
 echo "Installing jq - command-line JSON processor"
 sudo apt install jq
+
+echo "Installing code tag tools"
+sudo apt install cscope exuberant-ctags global doxygen id-utils python3-pygments
 
 echo "Installing fd-find - an alternative to find"
 sudo apt install fd-find
