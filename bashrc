@@ -111,3 +111,5 @@ fi
 if [ -f "$HOME/.profile.robc" ]; then
     . "$HOME/.profile.robc"
 fi
+
+[ -f ~/.fzf.bash ] && source ~/.fzf.bash
