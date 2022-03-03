@@ -115,16 +115,16 @@ wget https://github.com/dandavison/delta/releases/download/0.12.0/git-delta_0.12
 sudo dpkg -i git-delta.deb
 rm -f git-delta.deb
 
-# https://ohmyz.sh/#install
-echo "Installing oh-my-zsh"
-sh -c "$(wget https://raw.github.com/ohmyzsh/ohmyzsh/master/tools/install.sh -O -)"
-
 echo "Installing ripgrep"
 sudo apt install ripgrep
 
 echo "Installing fzf"
 git clone --depth 1 https://github.com/junegunn/fzf.git ~/.fzf
 ~/.fzf/install
+
+# https://ohmyz.sh/#install
+echo "Installing oh-my-zsh"
+sh -c "$(wget https://raw.github.com/ohmyzsh/ohmyzsh/master/tools/install.sh -O -)"
 
 echo "Install Done!"
 
