@@ -14,6 +14,9 @@
     email = robbie.cao@arm.com
 [push]
     default = matching
+[sendemail]
+    smtpserver = mail.arm.com
+    smtpserverport = 25
 [color]
     ui = auto
     diff = auto
@@ -37,6 +40,11 @@
     added = yellow
     changed = green
     untracked = cyan
+[color "grep"]
+    linenumber = yellow bold
+    match = red
+    filename = magenta
+    separator = cyan
 [grep]
     lineNumber = true
 [alias]
