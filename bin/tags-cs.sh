@@ -11,6 +11,7 @@ find `pwd` -type f                         \
     -o -name '*.sh'                        \
     -o -name '*.s51'                       \
     -o -name '*.xml'                       \
+    ! -path '*/build/*'                    \
     >> cscope.files
 
 cscope -qkb -i cscope.files
