@@ -15,8 +15,13 @@
 [push]
     default = matching
 [sendemail]
-    smtpserver = mail.arm.com
-    smtpserverport = 25
+    from = Robbie Cao <robbie.cao@arm.com>
+    smtpuser = robcao01
+    smtpserver = foss.arm.com
+    smtpserverport = 587
+    smtpencryption = tls
+    suppresscc = self
+    confirm = always
 [color]
     ui = auto
     diff = auto
